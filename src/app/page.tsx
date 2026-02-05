@@ -1,65 +1,166 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 export default function Home() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  // Use global scroll progress to match Navbar
+  const { scrollYProgress } = useScroll();
+
+  // CONFIGURATION VARIABLES - adjust these to control the animation
+
+  // Hero crop size configuration (percentages)
+  const HERO_WIDTH_START = 100;
+  const HERO_WIDTH_END = 60;
+  const HERO_HEIGHT_START = 100;
+  const HERO_HEIGHT_END = 25;
+
+  // Hero animation timing (0-1 scroll progress)
+  const HERO_ANIMATION_START = 0;
+  const HERO_ANIMATION_END = 0.5;
+
+  // Bottom elements animation timing - synchronized with navigation (0 to 0.2)
+  const BOTTOM_ANIMATION_START = 0;
+  const BOTTOM_ANIMATION_END = 0.2; // Same as NAV_ANIMATION_END
+  const BOTTOM_START_Y = 100;
+  const BOTTOM_END_Y = 0;
+
+  // Hero container crops by reducing width/height (image stays at object-cover)
+  const heroWidth = useTransform(
+    scrollYProgress,
+    [HERO_ANIMATION_START, HERO_ANIMATION_END],
+    [`${HERO_WIDTH_START}%`, `${HERO_WIDTH_END}%`],
+  );
+  const heroHeight = useTransform(
+    scrollYProgress,
+    [HERO_ANIMATION_START, HERO_ANIMATION_END],
+    [`${HERO_HEIGHT_START}%`, `${HERO_HEIGHT_END}%`],
+  );
+  const heroOpacity = useTransform(
+    scrollYProgress,
+    [HERO_ANIMATION_START, HERO_ANIMATION_END],
+    [1, 0.8],
+  );
+
+  // Logo and text slide up from below the viewport into position
+  const bottomElementsY = useTransform(
+    scrollYProgress,
+    [BOTTOM_ANIMATION_START, BOTTOM_ANIMATION_END],
+    [BOTTOM_START_Y, BOTTOM_END_Y],
+  );
+  const bottomElementsOpacity = useTransform(
+    scrollYProgress,
+    [BOTTOM_ANIMATION_START, BOTTOM_ANIMATION_END],
+    [0, 1],
+  );
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div
+      ref={containerRef}
+      className="relative h-[150vh] scroll-smooth"
+      style={{ scrollSnapType: "y mandatory" }}
+    >
+      {/* Fixed hero section that shrinks on scroll */}
+      <div className="fixed inset-0 h-screen w-screen overflow-hidden scroll-snap-start">
+        {/* Blackish background that gets revealed */}
+        <div className="absolute inset-0 bg-[#141414]" />
+
+        {/* Hero image container that crops (overflow hidden) */}
+        <motion.div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden"
+          style={{
+            width: heroWidth,
+            height: heroHeight,
+            opacity: heroOpacity,
+          }}
+        >
+          {/* Image stays at full size with object-cover, container crops it */}
+          <Image
+            src="/bg/hero.png"
+            width={1920}
+            height={1080}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            priority
+          />
+        </motion.div>
+
+        <div className="absolute top-22 left-0 right-0 h-[calc(100vh-7.5rem)] py-24 flex flex-col justify-around w-screen items-center text-center">
+          <p className="text-2xl">
+            WE DON&apos;T RUSH FOUNDATIONS,
+            <br /> EVEN ONLINE.
           </p>
+          <p className="text-xl">
+            OUR FULL WEBSITE IS
+            <br /> LAUNCHING SOON.
+          </p>
+          <div className="flex flex-col gap-7">
+            <p className="text-xl">
+              TAKE A LOOK AT OUR
+              <br /> ESTABLISHED PROJECTS
+            </p>
+            <div className="flex gap-12 items-center">
+              <Link
+                href="#"
+                className="opacity-45 hover:opacity-100 transition-opacity"
+              >
+                <Image
+                  src="/logos/kukun.svg"
+                  width={96}
+                  height={28}
+                  alt="Kukun"
+                  className="w-24 h-7 object-contain"
+                />
+              </Link>
+              <Link
+                href="#"
+                className="opacity-45 hover:opacity-100 transition-opacity"
+              >
+                <Image
+                  src="/logos/armonia.svg"
+                  width={96}
+                  height={28}
+                  alt="Armonia"
+                  className="w-24 h-7 object-contain"
+                />
+              </Link>
+              <Link
+                href="#"
+                className="opacity-45 hover:opacity-100 transition-opacity"
+              >
+                <Image
+                  src="/logos/ilbayou.svg"
+                  width={96}
+                  height={28}
+                  alt="il bayou"
+                  className="w-24 h-7 pt-2 object-contain"
+                />
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        {/* Bottom elements that slide up */}
+        <motion.div
+          className="flex w-screen justify-between absolute inset-x-0 px-24 bottom-8 items-center"
+          style={{
+            y: bottomElementsY,
+            opacity: bottomElementsOpacity,
+          }}
+        >
+          <p>THE RIGHT CHOICE</p>
+          <Image
+            src="/logos/the-land-developers.png"
+            width={243}
+            height={12}
+            alt="the land developers logo"
+            className="w-60 h-3"
+          />
+        </motion.div>
+      </div>
     </div>
   );
 }
