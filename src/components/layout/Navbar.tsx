@@ -27,7 +27,7 @@ const projectLogos = [
 
 function SocialLinks() {
   return (
-    <div className="flex gap-6">
+    <div className="flex gap-4 md:gap-6">
       <Link
         href="https://www.instagram.com/thelanddevelopers"
         target="_blank"
@@ -38,7 +38,7 @@ function SocialLinks() {
           width={21}
           height={20}
           alt="instagram account"
-          className="size-5"
+          className="size-4 md:size-5"
         />
       </Link>
       <Link
@@ -51,7 +51,7 @@ function SocialLinks() {
           width={21}
           height={20}
           alt="facebook page"
-          className="size-5"
+          className="size-4 md:size-5"
         />
       </Link>
       <Link
@@ -64,7 +64,7 @@ function SocialLinks() {
           width={21}
           height={20}
           alt="linkedin account"
-          className="size-5"
+          className="size-4 md:size-5"
         />
       </Link>
     </div>
@@ -73,7 +73,7 @@ function SocialLinks() {
 
 function ContactButton() {
   return (
-    <button className="px-6 py-2 text-sm font-medium tracking-wide">
+    <button className="text-sm font-medium tracking-wide md:px-6 md:py-2">
       CONTACT US
     </button>
   );
@@ -110,30 +110,30 @@ export function Navbar() {
   const isProjects = variant === "projects";
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xs bg-black/30 rounded-br-3xl w-full flex items-center rounded-bl-3xl h-20 px-4 md:px-8">
+    <nav className="fixed top-0 right-0 left-0 z-50 flex h-20 w-full items-center rounded-br-3xl rounded-bl-3xl bg-black/30 px-4 backdrop-blur-xs md:px-8">
       {isProjects ? (
         // Projects layout: Logo (left) | Project logos (center) | Social + Contact (right)
         <>
           {/* Left: Main Logo */}
-          <div className="shrink-0 flex justify-start">
+          <div className="flex shrink-0 justify-start">
             <Link href="/">
               <Image
                 src="/logo.png"
                 alt="Logo"
                 width={97}
                 height={32}
-                className="w-20 md:w-24 h-auto"
+                className="h-auto w-20 md:w-24"
               />
             </Link>
           </div>
 
           {/* Center: Project Logos */}
-          <div className="flex-1 flex justify-center px-2 md:px-4">
+          <div className="flex flex-1 justify-center px-2 md:px-4">
             <ProjectLogos />
           </div>
 
           {/* Right: Social Links + Contact - hidden on mobile */}
-          <div className="hidden md:flex shrink-0 justify-end items-center gap-4 lg:gap-6">
+          <div className="hidden shrink-0 items-center justify-end gap-4 md:flex lg:gap-6">
             <SocialLinks />
             <ContactButton />
           </div>
@@ -143,7 +143,7 @@ export function Navbar() {
         <>
           {/* Social links - hidden initially above page, slide down on scroll */}
           <motion.div
-            className="flex-1 flex justify-start"
+            className="flex flex-1 justify-start"
             style={{
               opacity: navElementsOpacity,
               y: navElementsY,
@@ -153,21 +153,21 @@ export function Navbar() {
           </motion.div>
 
           {/* Logo - always visible */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex flex-1 justify-center">
             <Link href="/">
               <Image
                 src="/logo.png"
                 alt="Logo"
                 width={97}
                 height={32}
-                className="w-20 md:w-24 h-auto"
+                className="h-auto w-18 md:w-24"
               />
             </Link>
           </div>
 
           {/* Contact button - hidden initially above page, slides down on scroll */}
           <motion.div
-            className="flex-1 flex justify-end"
+            className="flex flex-1 justify-end"
             style={{
               opacity: navElementsOpacity,
               y: navElementsY,

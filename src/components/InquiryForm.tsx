@@ -51,10 +51,10 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
               value={field.state.value}
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
-              className="bg-transparent border border-[#444] px-2 py-1 text-sm focus:outline-none focus:border-[#ededed] transition-colors"
+              className="border border-[#444] bg-transparent px-2 py-1 text-sm transition-colors focus:border-[#ededed] focus:outline-none"
             />
             {field.state.meta.errors.length > 0 && (
-              <span className="text-red-400 text-xs">
+              <span className="text-xs text-red-400">
                 {field.state.meta.errors[0]}
               </span>
             )}
@@ -83,10 +83,10 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
               value={field.state.value}
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
-              className="bg-transparent border border-[#444] px-2 py-1 text-sm focus:outline-none focus:border-[#ededed] transition-colors"
+              className="border border-[#444] bg-transparent px-2 py-1 text-sm transition-colors focus:border-[#ededed] focus:outline-none"
             />
             {field.state.meta.errors.length > 0 && (
-              <span className="text-red-400 text-xs">
+              <span className="text-xs text-red-400">
                 {field.state.meta.errors[0]}
               </span>
             )}
@@ -120,10 +120,10 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
               value={field.state.value}
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
-              className="bg-transparent border border-[#444] px-2 py-1 text-sm focus:outline-none focus:border-[#ededed] transition-colors"
+              className="border border-[#444] bg-transparent px-2 py-1 text-sm transition-colors focus:border-[#ededed] focus:outline-none"
             />
             {field.state.meta.errors.length > 0 && (
-              <span className="text-red-400 text-xs">
+              <span className="text-xs text-red-400">
                 {field.state.meta.errors[0]}
               </span>
             )}
@@ -152,10 +152,10 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
               rows={4}
-              className="bg-transparent border border-[#444] px-2 py-1 text-sm focus:outline-none focus:border-[#ededed] transition-colors resize-none"
+              className="resize-none border border-[#444] bg-transparent px-2 py-1 text-sm transition-colors focus:border-[#ededed] focus:outline-none"
             />
             {field.state.meta.errors.length > 0 && (
-              <span className="text-red-400 text-xs">
+              <span className="text-xs text-red-400">
                 {field.state.meta.errors[0]}
               </span>
             )}
@@ -171,7 +171,7 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
             <button
               type="submit"
               disabled={!canSubmit || isSubmitting}
-              className="border border-[#444] px-8 md:px-12 py-2.5 md:py-3 text-sm tracking-wide uppercase hover:bg-[#ededed] hover:text-[#141414] transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto"
+              className="w-full border border-[#444] px-8 py-2.5 text-sm tracking-wide uppercase transition-colors hover:bg-[#ededed] hover:text-[#141414] disabled:cursor-not-allowed disabled:opacity-50 md:w-auto md:px-12 md:py-3"
             >
               {isSubmitting ? "SUBMITTING..." : "SUBMIT"}
             </button>
