@@ -4,7 +4,6 @@ import { Navbar } from "@/components/layout/Navbar";
 import { NavbarProvider } from "@/contexts/NavbarContext";
 import "./globals.css";
 
-
 const sfPro = localFont({
   src: [
     {

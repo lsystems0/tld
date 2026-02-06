@@ -32,7 +32,7 @@ function FadeImage({
       <Image
         src={src}
         alt={alt}
-        className={`${className || ""} w-full h-full object-cover`}
+        className={`${className || ""} h-full w-full object-cover`}
         {...props}
       />
     </motion.div>
@@ -94,16 +94,16 @@ export function ProjectsContent() {
 
   if (!projectData) {
     return (
-      <div className="h-screen flex items-center justify-center bg-[#141414]">
+      <div className="flex h-screen items-center justify-center bg-[#141414]">
         <div className="animate-pulse text-white/50">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#141414] min-h-screen">
+    <div className="min-h-screen bg-[#141414]">
       {/* Hero Section */}
-      <section className="flex items-center justify-center h-[85vh] relative text-center overflow-hidden">
+      <section className="relative flex h-[85vh] items-center justify-center overflow-hidden text-center">
         <AnimatePresence mode="popLayout">
           <FadeImage
             key={`hero-${currentProject}`}
@@ -115,12 +115,12 @@ export function ProjectsContent() {
           />
         </AnimatePresence>
 
-        <p className="text-lg md:text-2xl z-1 relative px-4">
+        <p className="relative z-1 px-4 text-lg md:text-2xl">
           WE DON&apos;T RUSH FOUNDATIONS,
           <br /> EVEN ONLINE.
         </p>
-        <div className="flex w-screen justify-between absolute inset-x-0 px-4 md:px-24 bottom-4 md:bottom-8 items-end z-1">
-          <p className="text-[10px] md:text-base whitespace-nowrap">
+        <div className="absolute inset-x-0 bottom-4 z-1 flex w-screen items-end justify-between px-4 md:bottom-8 md:px-24">
+          <p className="text-[10px] whitespace-nowrap md:text-base">
             THE RIGHT CHOICE
           </p>
           <Image
@@ -128,16 +128,16 @@ export function ProjectsContent() {
             width={243}
             height={12}
             alt="the land developers logo"
-            className="w-24 md:w-35 object-contain"
+            className="w-24 object-contain md:w-35"
           />
         </div>
       </section>
 
       {/* Description Section */}
-      <section className="flex flex-col lg:flex-row gap-8 lg:gap-16 p-6 md:p-12 lg:p-24 items-center justify-center">
-        <div className="flex flex-col gap-8 lg:gap-16 w-full lg:flex-[40%] lg:max-w-[40%]">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative">
-            <div className="relative h-12 md:h-14 w-full md:w-72.5">
+      <section className="flex flex-col items-center justify-center gap-8 p-6 md:p-12 lg:flex-row lg:gap-16 lg:p-24">
+        <div className="flex w-full flex-col gap-8 lg:max-w-[40%] lg:flex-[40%] lg:gap-16">
+          <div className="relative flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+            <div className="relative h-12 w-full md:h-14 md:w-72.5">
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={`logo-${currentProject}`}
@@ -152,14 +152,14 @@ export function ProjectsContent() {
                     width={290}
                     height={56}
                     alt={projectData.name + " logo"}
-                    className="w-auto h-12 md:h-14 object-contain"
+                    className="h-12 w-auto object-contain md:h-14"
                   />
                 </motion.div>
               </AnimatePresence>
             </div>
             <Link
               href="#"
-              className="underline text-sm md:text-base whitespace-nowrap"
+              className="text-sm whitespace-nowrap underline md:text-base"
             >
               DOWNLOAD BROCHURE
             </Link>
@@ -172,16 +172,15 @@ export function ProjectsContent() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="absolute inset-0"
               >
-                <p className="text-sm md:text-base leading-relaxed">
+                <p className="text-sm leading-relaxed md:text-base">
                   {projectData.description}
                 </p>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
-        <div className="w-full lg:flex-[60%] lg:max-w-[60%] relative h-64 md:h-80 lg:h-104">
+        <div className="relative h-40 w-full md:h-80 lg:h-104 lg:max-w-[60%] lg:flex-[60%]">
           <AnimatePresence mode="popLayout">
             <FadeContent
               key={`desc-img-${currentProject}`}
@@ -191,7 +190,7 @@ export function ProjectsContent() {
                 src={projectData.description_img}
                 width={835}
                 height={418}
-                className="w-full h-full object-contain"
+                className="h-full w-full object-contain"
                 alt=""
               />
             </FadeContent>
@@ -200,10 +199,10 @@ export function ProjectsContent() {
       </section>
 
       {/* Gallery and Form Section */}
-      <section className="flex flex-col lg:flex-row gap-8 lg:gap-30 px-6 md:px-12 lg:px-24 pb-12 md:pb-24">
+      <section className="flex flex-col-reverse gap-8 pb-12 md:flex-col md:px-12 md:pb-24 lg:flex-row lg:gap-30 lg:px-24">
         <div
           id="project-gallery"
-          className="w-full lg:flex-[60%] lg:max-w-[60%] relative h-64 md:h-80 lg:h-104 order-2 lg:order-1"
+          className="relative order-2 h-64 w-full md:h-80 lg:order-1 lg:h-104 lg:max-w-[60%] lg:flex-[60%]"
         >
           <AnimatePresence mode="popLayout">
             <FadeContent
@@ -216,7 +215,7 @@ export function ProjectsContent() {
         </div>
         <div
           id="inquiry-form"
-          className="w-full lg:flex-[40%] lg:max-w-[40%] flex flex-col gap-6 lg:gap-11 relative order-1 lg:order-2"
+          className="relative order-1 flex w-full flex-col gap-6 px-6 md:px-0 lg:order-2 lg:max-w-[40%] lg:flex-[40%] lg:gap-11"
         >
           <p className="text-xl md:text-2xl">Fill the form for more info</p>
           <InquiryForm inquiringForm={projectData.name} />

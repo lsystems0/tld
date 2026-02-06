@@ -31,7 +31,7 @@ export default function Home() {
 
         {/* Hero image container that crops (overflow hidden) */}
         <motion.div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden"
           style={{
             width: heroWidth,
             height: heroHeight,
@@ -44,12 +44,12 @@ export default function Home() {
             width={1920}
             height={1080}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover"
             priority
           />
         </motion.div>
 
-        <div className="absolute top-22 left-0 right-0 h-[calc(100vh-7.5rem)] py-12 md:py-24 flex flex-col justify-around w-screen items-center text-center px-4 md:px-0">
+        <div className="absolute top-22 right-0 left-0 flex h-[calc(100vh-7.5rem)] w-screen flex-col items-center justify-around px-4 py-12 text-center md:px-0 md:py-24">
           <p className="text-lg md:text-2xl">
             WE DON&apos;T RUSH FOUNDATIONS,
             <br /> EVEN ONLINE.
@@ -63,41 +63,41 @@ export default function Home() {
               TAKE A LOOK AT OUR
               <br /> ESTABLISHED PROJECTS
             </p>
-            <div className="flex flex-wrap justify-center gap-6 md:gap-12 items-center">
+            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12">
               <Link
                 href="/projects?project=kukun"
-                className="opacity-45 hover:opacity-100 transition-opacity"
+                className="opacity-45 transition-opacity hover:opacity-100"
               >
                 <Image
                   src="/logos/kukun.svg"
                   width={96}
                   height={28}
                   alt="Kukun"
-                  className="w-24 h-7 object-contain"
+                  className="h-7 w-24 object-contain"
                 />
               </Link>
               <Link
                 href="/projects?project=armonia"
-                className="opacity-45 hover:opacity-100 transition-opacity"
+                className="opacity-45 transition-opacity hover:opacity-100"
               >
                 <Image
                   src="/logos/armonia.svg"
                   width={96}
                   height={28}
                   alt="Armonia"
-                  className="w-24 h-7 object-contain"
+                  className="h-7 w-24 object-contain"
                 />
               </Link>
               <Link
                 href="/projects?project=ilbayou"
-                className="opacity-45 hover:opacity-100 transition-opacity"
+                className="opacity-45 transition-opacity hover:opacity-100"
               >
                 <Image
                   src="/logos/ilbayou.svg"
                   width={96}
                   height={28}
                   alt="il bayou"
-                  className="w-24 h-7 pt-2 object-contain"
+                  className="h-7 w-24 object-contain pt-2"
                 />
               </Link>
             </div>
@@ -106,13 +106,13 @@ export default function Home() {
 
         {/* Bottom elements that slide up */}
         <motion.div
-          className="flex w-screen justify-between absolute inset-x-0 px-4 md:px-24 bottom-4 md:bottom-8 items-center"
+          className="absolute inset-x-0 bottom-4 flex w-screen items-center justify-between px-4 md:bottom-8 md:px-24"
           style={{
             y: bottomElementsY,
             opacity: bottomElementsOpacity,
           }}
         >
-          <p className="text-[10px] md:text-base whitespace-nowrap">
+          <p className="text-[10px] whitespace-nowrap md:text-base">
             THE RIGHT CHOICE
           </p>
           <Image
@@ -120,7 +120,7 @@ export default function Home() {
             width={243}
             height={12}
             alt="the land developers logo"
-            className="w-40 md:w-60 object-contain"
+            className="w-40 object-contain md:w-60"
           />
         </motion.div>
       </div>
