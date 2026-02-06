@@ -125,11 +125,11 @@ export function ProjectsContent() {
             <p className="self-start">A REAL LIFE SHOT</p>
           )}
           <Image
-            src="/logos/mostakbal-city-logo-white.svg"
+            src={projectData.developer_logo}
             width={243}
             height={12}
-            alt="the land developers logo"
-            className="w-24 object-contain md:w-35"
+            className={`object-contain ${projectData.name === "Kukun" ? "w-24 md:w-35" : "w-50 md:w-60"}`}
+            alt=""
           />
         </div>
       </section>
@@ -242,6 +242,7 @@ const PROJECTS = [
     hero_img:
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUDSBS4H05XgUufbkFidheEQ67YyqGSTKnL4jD",
     is_real: true,
+    developer_logo: "/logos/the-land-developers.png",
     gallery: [
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUXAoKoITMo3e5JNistYa0qELOG8zX2w1vWRPK",
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU2rR1TxwjJQ7gcmVUaA8SrXPtIp6KDzk0w9Ro",
@@ -261,6 +262,7 @@ const PROJECTS = [
     hero_img:
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUAIig3LqpACgowyT1VWNGu0B8mjPan7RMHfEJ",
     is_real: true,
+    developer_logo: "/logos/the-land-developers.png",
     gallery: [
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUOxV16XUNWDGbqk3VnXtS7QfAUB5aT80pZioz",
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUM7Nv0IyXtFquGZS9IC4idahYjrWKNDkgElHc",
@@ -280,6 +282,7 @@ const PROJECTS = [
     hero_img:
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU0IrKBBpQHwPTbFXjBnRVIDCWoGhm7ukr1KaY",
     is_real: false,
+    developer_logo: "/logos/mostakbal-city-logo-white.svg",
     gallery: [
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU5RBBwfJgtm0Df4R7MWkOawGsSoxI2UpLcNXv",
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU8mL6PdgyhnKtk2DMdX34OY9jvAel1EqLBGxU",
