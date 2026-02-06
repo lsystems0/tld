@@ -119,16 +119,16 @@ export function ProjectsContent() {
           WE DON&apos;T RUSH FOUNDATIONS,
           <br /> EVEN ONLINE.
         </p>
-        <div className="flex w-screen justify-between absolute inset-x-0 px-8 md:px-24 bottom-8 items-center z-1">
+        <div className="flex w-screen justify-between absolute inset-x-0 px-8 md:px-24 bottom-8 items-end z-1">
           <p className="text-xs md:text-base whitespace-nowrap">
             THE RIGHT CHOICE
           </p>
           <Image
-            src="/logos/the-land-developers.png"
+            src="/logos/mostakbal-city-logo-white.svg"
             width={243}
             height={12}
             alt="the land developers logo"
-            className="w-50 md:w-60 object-contain"
+            className="w-35 object-contain"
           />
         </div>
       </section>
