@@ -8,6 +8,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-tld-yellow: #fad720;
   --font-sf: var(--font-sf-pro);
 }
 
@@ -16,6 +17,6 @@ body {
   color: var(--foreground);
 }
 
-button{
+button {
   cursor: pointer;
 }
