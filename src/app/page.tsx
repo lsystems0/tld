@@ -42,16 +42,16 @@ export default function Home() {
         </motion.div>
 
         <div className="absolute top-22 left-0 right-0 h-[calc(100vh-7.5rem)] py-24 flex flex-col justify-around w-screen items-center text-center">
-          <p className="text-2xl">
+          <p className="text-xl md:text-2xl">
             WE DON&apos;T RUSH FOUNDATIONS,
             <br /> EVEN ONLINE.
           </p>
-          <p className="text-xl">
+          <p className="md:text-xl">
             OUR FULL WEBSITE IS
             <br /> LAUNCHING SOON.
           </p>
           <div className="flex flex-col gap-7">
-            <p className="text-xl">
+            <p className="md:text-xl">
               TAKE A LOOK AT OUR
               <br /> ESTABLISHED PROJECTS
             </p>
@@ -98,19 +98,21 @@ export default function Home() {
 
         {/* Bottom elements that slide up */}
         <motion.div
-          className="flex w-screen justify-between absolute inset-x-0 px-24 bottom-8 items-center"
+          className="flex w-screen justify-between absolute inset-x-0 px-8 md:px-24 bottom-8 items-center"
           style={{
             y: bottomElementsY,
             opacity: bottomElementsOpacity,
           }}
         >
-          <p>THE RIGHT CHOICE</p>
+          <p className="text-xs md:text-base whitespace-nowrap">
+            THE RIGHT CHOICE
+          </p>
           <Image
             src="/logos/the-land-developers.png"
             width={243}
             height={12}
             alt="the land developers logo"
-            className="w-60 h-3"
+            className="w-50 md:w-60 object-contain"
           />
         </motion.div>
       </div>
