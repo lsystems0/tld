@@ -15,12 +15,9 @@ export default function Home() {
   } = useHomeScrollAnimations();
 
   return (
-    <div
-      className="relative h-[150vh] scroll-smooth"
-      style={{ scrollSnapType: "y mandatory" }}
-    >
+    <div className="relative h-[150vh]">
       {/* Fixed hero section that shrinks on scroll */}
-      <div className="fixed inset-0 h-screen w-screen overflow-hidden scroll-snap-start">
+      <div className="fixed inset-0 h-screen w-screen overflow-hidden">
         {/* Blackish background that gets revealed */}
         <div className="absolute inset-0 bg-[#141414]" />
 
