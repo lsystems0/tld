@@ -115,12 +115,12 @@ export function ProjectsContent() {
           />
         </AnimatePresence>
 
-        <p className="text-xl md:text-2xl z-1 relative">
+        <p className="text-lg md:text-2xl z-1 relative px-4">
           WE DON&apos;T RUSH FOUNDATIONS,
           <br /> EVEN ONLINE.
         </p>
-        <div className="flex w-screen justify-between absolute inset-x-0 px-8 md:px-24 bottom-8 items-end z-1">
-          <p className="text-xs md:text-base whitespace-nowrap">
+        <div className="flex w-screen justify-between absolute inset-x-0 px-4 md:px-24 bottom-4 md:bottom-8 items-end z-1">
+          <p className="text-[10px] md:text-base whitespace-nowrap">
             THE RIGHT CHOICE
           </p>
           <Image
@@ -128,16 +128,16 @@ export function ProjectsContent() {
             width={243}
             height={12}
             alt="the land developers logo"
-            className="w-35 object-contain"
+            className="w-24 md:w-35 object-contain"
           />
         </div>
       </section>
 
       {/* Description Section */}
-      <section className="flex gap-16 p-24 items-center justify-center">
-        <div className="flex flex-col gap-16 flex-40">
-          <div className="flex justify-between items-center relative">
-            <div className="relative h-14 w-72.5">
+      <section className="flex flex-col lg:flex-row gap-8 lg:gap-16 p-6 md:p-12 lg:p-24 items-center justify-center">
+        <div className="flex flex-col gap-8 lg:gap-16 w-full lg:flex-[40%] lg:max-w-[40%]">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative">
+            <div className="relative h-12 md:h-14 w-full md:w-72.5">
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={`logo-${currentProject}`}
@@ -152,16 +152,19 @@ export function ProjectsContent() {
                     width={290}
                     height={56}
                     alt={projectData.name + " logo"}
-                    className="w-auto h-14 object-contain"
+                    className="w-auto h-12 md:h-14 object-contain"
                   />
                 </motion.div>
               </AnimatePresence>
             </div>
-            <Link href="#" className="underline ml-4">
+            <Link
+              href="#"
+              className="underline text-sm md:text-base whitespace-nowrap"
+            >
               DOWNLOAD BROCHURE
             </Link>
           </div>
-          <div className="relative min-h-50">
+          <div className="relative min-h-30 md:min-h-37.5 lg:min-h-50">
             <AnimatePresence mode="popLayout">
               <motion.div
                 key={`desc-${currentProject}`}
@@ -171,12 +174,14 @@ export function ProjectsContent() {
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="absolute inset-0"
               >
-                <p>{projectData.description}</p>
+                <p className="text-sm md:text-base leading-relaxed">
+                  {projectData.description}
+                </p>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
-        <div className="flex-60 relative h-104">
+        <div className="w-full lg:flex-[60%] lg:max-w-[60%] relative h-64 md:h-80 lg:h-104">
           <AnimatePresence mode="popLayout">
             <FadeContent
               key={`desc-img-${currentProject}`}
@@ -195,8 +200,11 @@ export function ProjectsContent() {
       </section>
 
       {/* Gallery and Form Section */}
-      <section className="flex gap-30 px-24 pb-24">
-        <div id="project-gallery" className="flex-60 relative h-104">
+      <section className="flex flex-col lg:flex-row gap-8 lg:gap-30 px-6 md:px-12 lg:px-24 pb-12 md:pb-24">
+        <div
+          id="project-gallery"
+          className="w-full lg:flex-[60%] lg:max-w-[60%] relative h-64 md:h-80 lg:h-104 order-2 lg:order-1"
+        >
           <AnimatePresence mode="popLayout">
             <FadeContent
               key={`gallery-${currentProject}`}
@@ -208,9 +216,9 @@ export function ProjectsContent() {
         </div>
         <div
           id="inquiry-form"
-          className="flex-40 flex flex-col gap-11 relative"
+          className="w-full lg:flex-[40%] lg:max-w-[40%] flex flex-col gap-6 lg:gap-11 relative order-1 lg:order-2"
         >
-          <p className="text-2xl">Fill the form for more info</p>
+          <p className="text-xl md:text-2xl">Fill the form for more info</p>
           <InquiryForm inquiringForm={projectData.name} />
         </div>
       </section>

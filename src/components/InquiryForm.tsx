@@ -28,7 +28,7 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
         e.stopPropagation();
         form.handleSubmit();
       }}
-      className="flex flex-col gap-10"
+      className="flex flex-col gap-6 md:gap-10"
     >
       <form.Field
         name="name" //*
@@ -171,7 +171,7 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
             <button
               type="submit"
               disabled={!canSubmit || isSubmitting}
-              className="border border-[#444] px-12 py-3 text-sm tracking-wide uppercase hover:bg-[#ededed] hover:text-[#141414] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="border border-[#444] px-8 md:px-12 py-2.5 md:py-3 text-sm tracking-wide uppercase hover:bg-[#ededed] hover:text-[#141414] transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto"
             >
               {isSubmitting ? "SUBMITTING..." : "SUBMIT"}
             </button>

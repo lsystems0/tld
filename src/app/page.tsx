@@ -49,21 +49,21 @@ export default function Home() {
           />
         </motion.div>
 
-        <div className="absolute top-22 left-0 right-0 h-[calc(100vh-7.5rem)] py-24 flex flex-col justify-around w-screen items-center text-center">
-          <p className="text-xl md:text-2xl">
+        <div className="absolute top-22 left-0 right-0 h-[calc(100vh-7.5rem)] py-12 md:py-24 flex flex-col justify-around w-screen items-center text-center px-4 md:px-0">
+          <p className="text-lg md:text-2xl">
             WE DON&apos;T RUSH FOUNDATIONS,
             <br /> EVEN ONLINE.
           </p>
-          <p className="md:text-xl">
+          <p className="text-sm md:text-xl">
             OUR FULL WEBSITE IS
             <br /> LAUNCHING SOON.
           </p>
-          <div className="flex flex-col gap-7">
-            <p className="md:text-xl">
+          <div className="flex flex-col gap-4 md:gap-7">
+            <p className="text-sm md:text-xl">
               TAKE A LOOK AT OUR
               <br /> ESTABLISHED PROJECTS
             </p>
-            <div className="flex gap-12 items-center">
+            <div className="flex flex-wrap justify-center gap-6 md:gap-12 items-center">
               <Link
                 href="/projects?project=kukun"
                 className="opacity-45 hover:opacity-100 transition-opacity"
@@ -106,13 +106,13 @@ export default function Home() {
 
         {/* Bottom elements that slide up */}
         <motion.div
-          className="flex w-screen justify-between absolute inset-x-0 px-8 md:px-24 bottom-8 items-center"
+          className="flex w-screen justify-between absolute inset-x-0 px-4 md:px-24 bottom-4 md:bottom-8 items-center"
           style={{
             y: bottomElementsY,
             opacity: bottomElementsOpacity,
           }}
         >
-          <p className="text-xs md:text-base whitespace-nowrap">
+          <p className="text-[10px] md:text-base whitespace-nowrap">
             THE RIGHT CHOICE
           </p>
           <Image
@@ -120,7 +120,7 @@ export default function Home() {
             width={243}
             height={12}
             alt="the land developers logo"
-            className="w-50 md:w-60 object-contain"
+            className="w-40 md:w-60 object-contain"
           />
         </motion.div>
       </div>

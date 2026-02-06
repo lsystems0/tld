@@ -84,7 +84,7 @@ function ProjectLogos() {
   const project = searchParams.get("project");
 
   return (
-    <div className="flex items-center gap-8">
+    <div className="flex items-center gap-3 md:gap-6 lg:gap-8">
       {projectLogos.map((logo) => {
         const projectKey = logo.href.split("project=")[1];
         return (
@@ -94,7 +94,7 @@ function ProjectLogos() {
               alt={logo.alt}
               width={120}
               height={40}
-              className={`${project === projectKey ? "opacity-100" : "opacity-45"} ${projectKey === "ilbayou" ? "pt-2" : ""} h-8 w-auto hover:opacity-100 transition-opacity`}
+              className={`${project === projectKey ? "opacity-100" : "opacity-45"} ${projectKey === "ilbayou" ? "pt-1 md:pt-2" : ""} h-6 md:h-8 w-auto hover:opacity-100 transition-opacity`}
             />
           </Link>
         );
@@ -110,30 +110,30 @@ export function Navbar() {
   const isProjects = variant === "projects";
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xs bg-black/30 rounded-br-3xl w-full flex items-center rounded-bl-3xl h-20 px-8">
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xs bg-black/30 rounded-br-3xl w-full flex items-center rounded-bl-3xl h-20 px-4 md:px-8">
       {isProjects ? (
         // Projects layout: Logo (left) | Project logos (center) | Social + Contact (right)
         <>
           {/* Left: Main Logo */}
-          <div className="flex-1 flex justify-start">
+          <div className="shrink-0 flex justify-start">
             <Link href="/">
               <Image
                 src="/logo.png"
                 alt="Logo"
                 width={97}
                 height={32}
-                className="w-24 h-8"
+                className="w-20 md:w-24 h-auto"
               />
             </Link>
           </div>
 
           {/* Center: Project Logos */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-center px-2 md:px-4">
             <ProjectLogos />
           </div>
 
-          {/* Right: Social Links + Contact */}
-          <div className="flex-1 flex justify-end items-center gap-6">
+          {/* Right: Social Links + Contact - hidden on mobile */}
+          <div className="hidden md:flex shrink-0 justify-end items-center gap-4 lg:gap-6">
             <SocialLinks />
             <ContactButton />
           </div>
@@ -160,7 +160,7 @@ export function Navbar() {
                 alt="Logo"
                 width={97}
                 height={32}
-                className="w-24 h-8"
+                className="w-20 md:w-24 h-auto"
               />
             </Link>
           </div>

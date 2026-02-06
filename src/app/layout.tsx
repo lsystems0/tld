@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Navbar } from "@/components/layout/Navbar";
 import { NavbarProvider } from "@/contexts/NavbarContext";
@@ -15,6 +15,11 @@ const sfPro = localFont({
   ],
   variable: "--font-sf-pro",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "TLD",
