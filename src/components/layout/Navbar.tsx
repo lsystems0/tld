@@ -88,7 +88,7 @@ function ProjectLogos() {
       {projectLogos.map((logo) => {
         const projectKey = logo.href.split("project=")[1];
         return (
-          <Link key={logo.alt} href={logo.href}>
+          <Link key={logo.alt} href={logo.href} scroll={false}>
             <Image
               src={logo.src}
               alt={logo.alt}

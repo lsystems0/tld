@@ -16,7 +16,7 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
     },
     onSubmit: async ({ value }) => {
       // Handle form submission
-      console.log("Form submitted:", value);
+      console.log("Form submitted:", { value, inquiringForm });
       // TODO: Implement actual submission logic
     },
   });
