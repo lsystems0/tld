@@ -2,64 +2,20 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { useHomeScrollAnimations } from "@/hooks/useHomeScrollAnimations";
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  // Use global scroll progress to match Navbar
-  const { scrollYProgress } = useScroll();
-
-  // CONFIGURATION VARIABLES - adjust these to control the animation
-
-  // Hero crop size configuration (percentages)
-  const HERO_WIDTH_START = 100;
-  const HERO_WIDTH_END = 60;
-  const HERO_HEIGHT_START = 100;
-  const HERO_HEIGHT_END = 25;
-
-  // Hero animation timing (0-1 scroll progress)
-  const HERO_ANIMATION_START = 0;
-  const HERO_ANIMATION_END = 0.5;
-
-  // Bottom elements animation timing - synchronized with navigation (0 to 0.2)
-  const BOTTOM_ANIMATION_START = 0;
-  const BOTTOM_ANIMATION_END = 0.2; // Same as NAV_ANIMATION_END
-  const BOTTOM_START_Y = 100;
-  const BOTTOM_END_Y = 0;
-
-  // Hero container crops by reducing width/height (image stays at object-cover)
-  const heroWidth = useTransform(
-    scrollYProgress,
-    [HERO_ANIMATION_START, HERO_ANIMATION_END],
-    [`${HERO_WIDTH_START}%`, `${HERO_WIDTH_END}%`],
-  );
-  const heroHeight = useTransform(
-    scrollYProgress,
-    [HERO_ANIMATION_START, HERO_ANIMATION_END],
-    [`${HERO_HEIGHT_START}%`, `${HERO_HEIGHT_END}%`],
-  );
-  const heroOpacity = useTransform(
-    scrollYProgress,
-    [HERO_ANIMATION_START, HERO_ANIMATION_END],
-    [1, 0.8],
-  );
-
-  // Logo and text slide up from below the viewport into position
-  const bottomElementsY = useTransform(
-    scrollYProgress,
-    [BOTTOM_ANIMATION_START, BOTTOM_ANIMATION_END],
-    [BOTTOM_START_Y, BOTTOM_END_Y],
-  );
-  const bottomElementsOpacity = useTransform(
-    scrollYProgress,
-    [BOTTOM_ANIMATION_START, BOTTOM_ANIMATION_END],
-    [0, 1],
-  );
+  const {
+    heroWidth,
+    heroHeight,
+    heroOpacity,
+    bottomElementsY,
+    bottomElementsOpacity,
+  } = useHomeScrollAnimations();
 
   return (
     <div
-      ref={containerRef}
       className="relative h-[150vh] scroll-smooth"
       style={{ scrollSnapType: "y mandatory" }}
     >
