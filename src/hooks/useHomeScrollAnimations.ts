@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useScroll, useTransform } from "framer-motion";
 
 // ── Snap thresholds ──────────────────────────────────────────────────
@@ -26,11 +26,17 @@ const ENTRANCE_ANIMATION_START = 0;
 const ENTRANCE_ANIMATION_END = 0.2;
 
 // ── Hero crop configuration (percentages) ───────────────────────────
+// Desktop values
+const HERO_WIDTH_START_DESKTOP = 100;
+const HERO_WIDTH_END_DESKTOP = 60;
+const HERO_HEIGHT_START_DESKTOP = 100;
+const HERO_HEIGHT_END_DESKTOP = 25;
 
-const HERO_WIDTH_START = 100;
-const HERO_WIDTH_END = 60;
-const HERO_HEIGHT_START = 100;
-const HERO_HEIGHT_END = 25;
+// Mobile values (customize these as needed)
+const HERO_WIDTH_START_MOBILE = 100;
+const HERO_WIDTH_END_MOBILE = 80;
+const HERO_HEIGHT_START_MOBILE = 100;
+const HERO_HEIGHT_END_MOBILE = 20;
 
 // ── Slide distances ─────────────────────────────────────────────────
 
@@ -78,28 +84,54 @@ function smoothScrollTo(targetY: number, duration: number): Promise<void> {
 
 // ─────────────────────────────────────────────────────────────────────
 
+// Media query helper
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  return isMobile;
+}
+
 export function useHomeScrollAnimations() {
   const { scrollYProgress } = useScroll();
   const isSnapping = useRef(false);
   // Track whether we're in the "open" (scrolled-down) or "closed" (top) state
   // to avoid re-triggering in the same direction.
   const snappedState = useRef<"top" | "bottom">("top");
+  const isMobile = useIsMobile();
 
   // ── Snap logic ───────────────────────────────────────────────────
   const handleSnap = useCallback((latest: number) => {
     if (isSnapping.current) return;
 
     // Scrolling down past forward threshold → snap to bottom
-    if (latest >= SNAP_FORWARD_AT && latest < 1 && snappedState.current === "top") {
+    if (
+      latest >= SNAP_FORWARD_AT &&
+      latest < 1 &&
+      snappedState.current === "top"
+    ) {
       isSnapping.current = true;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
       smoothScrollTo(maxScroll, SNAP_DURATION_MS).then(() => {
         snappedState.current = "bottom";
         isSnapping.current = false;
       });
     }
     // Scrolling up past reverse threshold → snap to top
-    else if (latest <= SNAP_REVERSE_AT && latest > 0 && snappedState.current === "bottom") {
+    else if (
+      latest <= SNAP_REVERSE_AT &&
+      latest > 0 &&
+      snappedState.current === "bottom"
+    ) {
       isSnapping.current = true;
       smoothScrollTo(0, SNAP_DURATION_MS).then(() => {
         snappedState.current = "top";
@@ -117,15 +149,29 @@ export function useHomeScrollAnimations() {
   // ── Animation transforms ─────────────────────────────────────────
 
   // Hero image container crops by reducing width/height
+  // Use different values for mobile vs desktop
+  const heroWidthStart = isMobile
+    ? HERO_WIDTH_START_MOBILE
+    : HERO_WIDTH_START_DESKTOP;
+  const heroWidthEnd = isMobile
+    ? HERO_WIDTH_END_MOBILE
+    : HERO_WIDTH_END_DESKTOP;
+  const heroHeightStart = isMobile
+    ? HERO_HEIGHT_START_MOBILE
+    : HERO_HEIGHT_START_DESKTOP;
+  const heroHeightEnd = isMobile
+    ? HERO_HEIGHT_END_MOBILE
+    : HERO_HEIGHT_END_DESKTOP;
+
   const heroWidth = useTransform(
     scrollYProgress,
     [HERO_ANIMATION_START, HERO_ANIMATION_END],
-    [`${HERO_WIDTH_START}%`, `${HERO_WIDTH_END}%`],
+    [`${heroWidthStart}%`, `${heroWidthEnd}%`],
   );
   const heroHeight = useTransform(
     scrollYProgress,
     [HERO_ANIMATION_START, HERO_ANIMATION_END],
-    [`${HERO_HEIGHT_START}%`, `${HERO_HEIGHT_END}%`],
+    [`${heroHeightStart}%`, `${heroHeightEnd}%`],
   );
   const heroOpacity = useTransform(
     scrollYProgress,
