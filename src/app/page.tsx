@@ -1,11 +1,11 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useHomeScrollAnimations } from "@/hooks/useHomeScrollAnimations";
 import { useNavbar } from "@/contexts/NavbarContext";
+import { WeDontRush } from "@/components/ui/WeDontRush";
 
 export default function Home() {
   const {
@@ -49,11 +49,8 @@ export default function Home() {
           />
         </motion.div>
 
-        <div className="absolute top-22 right-0 left-0 flex h-[calc(100vh-7.5rem)] w-screen flex-col items-center justify-around px-4 py-12 text-center md:px-0 md:py-24">
-          <p className="text-lg md:text-2xl">
-            WE DON&apos;T RUSH FOUNDATIONS,
-            <br /> EVEN ONLINE.
-          </p>
+        <div className="absolute top-22 right-0 left-0 flex h-[calc(100vh-7.5rem)] w-screen flex-col items-center justify-around text-center">
+          <WeDontRush />
           <p className="text-sm md:text-xl">
             OUR FULL WEBSITE IS
             <br /> LAUNCHING SOON.
