@@ -100,13 +100,14 @@ function useIsMobile() {
   return isMobile;
 }
 
-export function useHomeScrollAnimations() {
+export function useHomeScrollAnimations(options?: { enableSnap?: boolean }) {
   const { scrollYProgress } = useScroll();
   const isSnapping = useRef(false);
   // Track whether we're in the "open" (scrolled-down) or "closed" (top) state
   // to avoid re-triggering in the same direction.
   const snappedState = useRef<"top" | "bottom">("top");
   const isMobile = useIsMobile();
+  const enableSnap = options?.enableSnap ?? false;
 
   // ── Snap logic ───────────────────────────────────────────────────
   const handleSnap = useCallback((latest: number) => {
@@ -140,11 +141,12 @@ export function useHomeScrollAnimations() {
     }
   }, []);
 
-  // Subscribe to scroll progress changes
+  // Subscribe to scroll progress changes (only if snap is enabled)
   useEffect(() => {
+    if (!enableSnap) return;
     const unsubscribe = scrollYProgress.on("change", handleSnap);
     return unsubscribe;
-  }, [scrollYProgress, handleSnap]);
+  }, [scrollYProgress, handleSnap, enableSnap]);
 
   // ── Animation transforms ─────────────────────────────────────────
 

@@ -14,7 +14,7 @@ export default function Home() {
     heroOpacity,
     bottomElementsY,
     bottomElementsOpacity,
-  } = useHomeScrollAnimations();
+  } = useHomeScrollAnimations({ enableSnap: true });
 
   const { setVariant } = useNavbar();
 

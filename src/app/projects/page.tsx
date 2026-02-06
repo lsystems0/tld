@@ -4,6 +4,8 @@ import { useNavbar } from "@/contexts/NavbarContext";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { EmblaCarousel } from "@/components/ui/EmblaCarousel";
+import { InquiryForm } from "@/components/InquiryForm";
 
 export default function ProjectsPage() {
   const searchParams = useSearchParams();
@@ -32,9 +34,9 @@ export default function ProjectsPage() {
           alt={projectData.name}
           width={1920}
           height={1080}
-          className="absolute inset-0 w-full h-full object-cover -z-1"
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        <p className="text-xl md:text-2xl">
+        <p className="text-xl md:text-2xl z-1">
           WE DON&apos;T RUSH FOUNDATIONS,
           <br /> EVEN ONLINE.
         </p>
@@ -78,7 +80,15 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section className="flex "></section>
+      <section className="flex gap-30 px-24 pb-24">
+        <div id="project-gallery" className="flex-60">
+          <EmblaCarousel images={projectData.gallery} className="h-104" />
+        </div>
+        <div id="inquiry-form" className="flex-40 flex flex-col gap-11">
+          <p className="text-2xl">Fill the form for more info</p>
+          <InquiryForm inquiringForm={projectData.name} />
+        </div>
+      </section>
     </div>
   );
 }
