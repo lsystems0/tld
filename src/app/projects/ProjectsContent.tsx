@@ -8,13 +8,6 @@ import { EmblaCarousel } from "@/components/ui/EmblaCarousel";
 import { InquiryForm } from "@/components/InquiryForm";
 import { motion, AnimatePresence } from "framer-motion";
 
-const fadeTransition = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-  transition: { duration: 0.5, ease: "easeInOut" as const },
-};
-
 function FadeImage({
   src,
   alt,
@@ -168,7 +161,7 @@ export function ProjectsContent() {
               DOWNLOAD BROCHURE
             </Link>
           </div>
-          <div className="relative min-h-[200px]">
+          <div className="relative min-h-50">
             <AnimatePresence mode="popLayout">
               <motion.div
                 key={`desc-${currentProject}`}
@@ -217,15 +210,8 @@ export function ProjectsContent() {
           id="inquiry-form"
           className="flex-40 flex flex-col gap-11 relative"
         >
-          <AnimatePresence mode="popLayout">
-            <FadeContent
-              key={`form-${currentProject}`}
-              className="flex flex-col gap-11"
-            >
-              <p className="text-2xl">Fill the form for more info</p>
-              <InquiryForm inquiringForm={projectData.name} />
-            </FadeContent>
-          </AnimatePresence>
+          <p className="text-2xl">Fill the form for more info</p>
+          <InquiryForm inquiringForm={projectData.name} />
         </div>
       </section>
     </div>
