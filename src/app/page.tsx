@@ -3,7 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { useHomeScrollAnimations } from "@/hooks/useHomeScrollAnimations";
+import { useNavbar } from "@/contexts/NavbarContext";
 
 export default function Home() {
   const {
@@ -13,6 +15,12 @@ export default function Home() {
     bottomElementsY,
     bottomElementsOpacity,
   } = useHomeScrollAnimations();
+
+  const { setVariant } = useNavbar();
+
+  useEffect(() => {
+    setVariant("default");
+  }, [setVariant]);
 
   return (
     <div className="relative h-[150vh]">
@@ -57,7 +65,7 @@ export default function Home() {
             </p>
             <div className="flex gap-12 items-center">
               <Link
-                href="#"
+                href="/projects?project=kukun"
                 className="opacity-45 hover:opacity-100 transition-opacity"
               >
                 <Image
@@ -69,7 +77,7 @@ export default function Home() {
                 />
               </Link>
               <Link
-                href="#"
+                href="/projects?project=armonia"
                 className="opacity-45 hover:opacity-100 transition-opacity"
               >
                 <Image
@@ -81,7 +89,7 @@ export default function Home() {
                 />
               </Link>
               <Link
-                href="#"
+                href="/projects?project=ilbayou"
                 className="opacity-45 hover:opacity-100 transition-opacity"
               >
                 <Image

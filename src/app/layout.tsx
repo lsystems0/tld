@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Navbar } from "@/components/layout/Navbar";
+import { NavbarProvider } from "@/contexts/NavbarContext";
 import "./globals.css";
 
 
@@ -28,8 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sfPro.variable} font-sf antialiased`}>
-        <Navbar />
-        {children}
+        <NavbarProvider>
+          <Navbar />
+          {children}
+        </NavbarProvider>
       </body>
     </html>
   );
