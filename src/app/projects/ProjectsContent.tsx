@@ -117,20 +117,31 @@ export function ProjectsContent() {
         </AnimatePresence>
 
         <WeDontRush />
-        <div className="absolute inset-x-0 bottom-4 z-1 flex w-screen items-end justify-between px-4 md:bottom-8 md:px-24">
-          <p className="text-[10px] whitespace-nowrap md:text-base">
+        {projectData.is_real && (
+          <p className="absolute bottom-10 flex-1 self-start text-[10px] whitespace-nowrap md:hidden">
+            A REAL LIFE SHOT
+          </p>
+        )}
+        <div className="absolute inset-x-0 bottom-4 z-1 flex w-screen items-center justify-between px-4 md:bottom-8 md:h-18 md:items-end md:px-24">
+          <p className="flex-1 text-start text-xs whitespace-nowrap md:text-base">
             THE RIGHT CHOICE
           </p>
+
           {projectData.is_real && (
-            <p className="self-start">A REAL LIFE SHOT</p>
+            <p className="hidden flex-1 self-start text-sm whitespace-nowrap md:block">
+              A REAL LIFE SHOT
+            </p>
           )}
-          <Image
-            src={projectData.developer_logo}
-            width={243}
-            height={12}
-            className={`object-contain ${projectData.name === "Kukun" ? "w-24 md:w-35" : "w-50 md:w-60"}`}
-            alt=""
-          />
+
+          <div className="flex-1">
+            <Image
+              src={projectData.developer_logo}
+              width={243}
+              height={12}
+              className={`ml-auto object-contain ${projectData.name === "Kukun" ? "w-24 md:w-35" : "w-40 md:w-60"}`}
+              alt=""
+            />
+          </div>
         </div>
       </section>
 
