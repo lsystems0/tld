@@ -77,7 +77,7 @@ export default function Home() {
             />
           </motion.div>
 
-          <div className="absolute top-22 right-0 left-0 flex h-[calc(100vh-7.5rem)] flex-col items-center justify-around text-center">
+          <div className="absolute top-16 right-0 left-0 flex h-[calc(100vh-7.5rem)] flex-col items-center justify-around text-center">
             <BracketedChild spacing="wide">
               <p className="z-1 px-4 text-lg whitespace-nowrap md:text-2xl">
                 WE DON&apos;T RUSH FOUNDATIONS,
