@@ -1,7 +1,9 @@
 import { Suspense } from "react";
 import { ProjectsContent } from "./ProjectsContent";
+import { Navbar } from "@/components/layout/Navbar";
 
 export default function ProjectsPage() {
+
   return (
     <Suspense
       fallback={

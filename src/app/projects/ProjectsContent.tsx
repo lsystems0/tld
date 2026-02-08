@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useNavbar } from "@/contexts/NavbarContext";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +7,7 @@ import { EmblaCarousel } from "@/components/ui/EmblaCarousel";
 import { InquiryForm } from "@/components/InquiryForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { BracketedChild } from "@/components/ui/BracketedChild";
+import { Navbar } from "@/components/layout/Navbar";
 
 function FadeImage({
   src,
@@ -67,12 +67,6 @@ export function ProjectsContent() {
 
   const projectData = PROJECTS.find((p) => p.id === currentProject);
 
-  const { setVariant } = useNavbar();
-
-  useEffect(() => {
-    setVariant("projects");
-  }, [setVariant]);
-
   useEffect(() => {
     if (project && project !== currentProject) {
       setCurrentProject(project);
@@ -93,6 +87,13 @@ export function ProjectsContent() {
     }
   }, [project, currentProject]);
 
+  const handleContactClick = () => {
+    const contactSection = document.querySelector("#gallery-form");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   if (!projectData) {
     return (
       <div className="flex h-screen items-center justify-center bg-[#141414]">
@@ -102,145 +103,154 @@ export function ProjectsContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#141414]">
-      {/* Hero Section */}
-      <section className="relative flex h-[85vh] items-center justify-center overflow-hidden text-center">
-        <AnimatePresence mode="popLayout">
-          <FadeImage
-            key={`hero-${currentProject}`}
-            src={projectData.hero_img}
-            alt={projectData.name}
-            width={1920}
-            height={1080}
-            priority
-          />
-        </AnimatePresence>
+    <>
+      <Navbar variant="projects" onContactClick={handleContactClick} />
+      <div className="min-h-screen bg-[#141414]">
+        {/* Hero Section */}
+        <section className="relative flex h-[85vh] items-center justify-center overflow-hidden text-center">
+          <AnimatePresence mode="popLayout">
+            <FadeImage
+              key={`hero-${currentProject}`}
+              src={projectData.hero_img}
+              alt={projectData.name}
+              width={1920}
+              height={1080}
+              priority
+            />
+          </AnimatePresence>
 
-        <BracketedChild spacing="normal">
-          <p className="z-1 px-4 text-lg whitespace-nowrap md:text-2xl">
-            {projectData.tagline}
-          </p>
-        </BracketedChild>
-
-        {projectData.is_real && (
-          <p className="absolute bottom-10 flex-1 self-start text-[10px] whitespace-nowrap md:hidden">
-            A REAL LIFE SHOT
-          </p>
-        )}
-        <div className="absolute inset-x-0 bottom-4 z-1 flex w-screen items-center justify-between px-4 md:bottom-8 md:h-18 md:items-end md:px-24">
-          <p className="flex-1 text-start text-xs whitespace-nowrap md:text-base">
-            THE RIGHT CHOICE
-          </p>
+          <BracketedChild spacing="normal">
+            <p className="z-1 px-4 text-lg whitespace-nowrap md:text-2xl">
+              {projectData.tagline}
+            </p>
+          </BracketedChild>
 
           {projectData.is_real && (
-            <p className="hidden flex-1 self-start text-sm whitespace-nowrap md:block">
+            <p className="absolute bottom-10 flex-1 self-start text-[10px] whitespace-nowrap md:hidden">
               A REAL LIFE SHOT
             </p>
           )}
+          <div className="absolute inset-x-0 bottom-4 z-1 flex w-screen items-center justify-between px-4 md:bottom-8 md:h-18 md:items-end md:px-24">
+            <p className="flex-1 text-start text-xs whitespace-nowrap md:text-base">
+              THE RIGHT CHOICE
+            </p>
 
-          <div className="flex-1">
-            <Image
-              src={projectData.developer_logo}
-              width={243}
-              height={12}
-              className={`ml-auto object-contain ${projectData.name === "Kukun" ? "w-24 md:w-35" : "w-40 md:w-60"}`}
-              alt=""
-            />
+            {projectData.is_real && (
+              <p className="hidden flex-1 self-start text-sm whitespace-nowrap md:block">
+                A REAL LIFE SHOT
+              </p>
+            )}
+
+            <div className="flex-1">
+              <Image
+                src={projectData.developer_logo}
+                width={243}
+                height={12}
+                className={`ml-auto object-contain ${projectData.name === "Kukun" ? "w-24 md:w-35" : "w-40 md:w-60"}`}
+                alt=""
+              />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Description Section */}
-      <section className="flex flex-col items-center justify-center gap-8 p-6 md:p-12 lg:flex-row lg:gap-16 lg:p-24">
-        <div className="flex w-full flex-col gap-8 lg:max-w-[40%] lg:flex-[40%] lg:gap-16">
-          <div className="relative flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-            <div className="relative h-12 w-full md:h-14 md:w-72.5">
+        {/* Description Section */}
+        <section className="flex flex-col items-center justify-center gap-8 p-6 md:p-12 lg:flex-row lg:gap-16 lg:p-24">
+          <div className="flex w-full flex-col gap-8 lg:max-w-[40%] lg:flex-[40%] lg:gap-16">
+            <div className="relative flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+              <div className="relative h-12 w-full md:h-14 md:w-72.5">
+                <AnimatePresence mode="popLayout">
+                  <motion.div
+                    key={`logo-${currentProject}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="absolute inset-0 flex items-center"
+                  >
+                    <Image
+                      src={projectData.logo}
+                      width={290}
+                      height={56}
+                      alt={projectData.name + " logo"}
+                      className="h-12 w-auto object-contain md:h-14"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+              <Link
+                href={projectData.brochure}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm whitespace-nowrap underline md:text-base"
+              >
+                DOWNLOAD BROCHURE
+              </Link>
+            </div>
+            <div className="relative min-h-30 md:min-h-37.5 lg:min-h-50">
               <AnimatePresence mode="popLayout">
                 <motion.div
-                  key={`logo-${currentProject}`}
+                  key={`desc-${currentProject}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="absolute inset-0 flex items-center"
                 >
-                  <Image
-                    src={projectData.logo}
-                    width={290}
-                    height={56}
-                    alt={projectData.name + " logo"}
-                    className="h-12 w-auto object-contain md:h-14"
-                  />
+                  <p className="text-sm leading-relaxed md:text-base">
+                    {projectData.description}
+                  </p>
                 </motion.div>
               </AnimatePresence>
             </div>
-            <Link
-              href={projectData.brochure}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm whitespace-nowrap underline md:text-base"
-            >
-              DOWNLOAD BROCHURE
-            </Link>
           </div>
-          <div className="relative min-h-30 md:min-h-37.5 lg:min-h-50">
+          <div className="relative h-40 w-full md:h-80 lg:h-104 lg:max-w-[60%] lg:flex-[60%]">
             <AnimatePresence mode="popLayout">
-              <motion.div
-                key={`desc-${currentProject}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+              <FadeContent
+                key={`desc-img-${currentProject}`}
+                className="absolute inset-0"
               >
-                <p className="text-sm leading-relaxed md:text-base">
-                  {projectData.description}
-                </p>
-              </motion.div>
+                <Image
+                  src={projectData.description_img}
+                  width={835}
+                  height={418}
+                  className="h-full w-full object-contain"
+                  alt=""
+                />
+              </FadeContent>
             </AnimatePresence>
           </div>
-        </div>
-        <div className="relative h-40 w-full md:h-80 lg:h-104 lg:max-w-[60%] lg:flex-[60%]">
-          <AnimatePresence mode="popLayout">
-            <FadeContent
-              key={`desc-img-${currentProject}`}
-              className="absolute inset-0"
-            >
-              <Image
-                src={projectData.description_img}
-                width={835}
-                height={418}
-                className="h-full w-full object-contain"
-                alt=""
-              />
-            </FadeContent>
-          </AnimatePresence>
-        </div>
-      </section>
+        </section>
 
-      {/* Gallery and Form Section */}
-      <section className="flex flex-col-reverse gap-8 pb-12 md:flex-col md:px-12 md:pb-24 lg:flex-row lg:gap-30 lg:px-24">
-        <div
-          id="project-gallery"
-          className="relative order-2 h-64 w-full md:h-80 lg:order-1 lg:h-104 lg:max-w-[60%] lg:flex-[60%]"
+        {/* Gallery and Form Section */}
+        <section
+          id="gallery-form"
+          className="flex flex-col-reverse gap-8 pb-12 md:flex-col md:px-12 md:pb-24 lg:flex-row lg:gap-30 lg:px-24"
         >
-          <AnimatePresence mode="popLayout">
-            <FadeContent
-              key={`gallery-${currentProject}`}
-              className="absolute inset-0"
-            >
-              <EmblaCarousel images={projectData.gallery} className="h-full" />
-            </FadeContent>
-          </AnimatePresence>
-        </div>
-        <div
-          id="inquiry-form"
-          className="relative order-1 flex w-full flex-col gap-6 px-6 md:px-0 lg:order-2 lg:max-w-[40%] lg:flex-[40%] lg:gap-11"
-        >
-          <p className="text-xl md:text-2xl">Fill the form for more info</p>
-          <InquiryForm inquiringForm={projectData.name} />
-        </div>
-      </section>
-    </div>
+          <div
+            id="project-gallery"
+            className="relative order-2 h-64 w-full md:h-80 lg:order-1 lg:h-104 lg:max-w-[60%] lg:flex-[60%]"
+          >
+            <AnimatePresence mode="popLayout">
+              <FadeContent
+                key={`gallery-${currentProject}`}
+                className="absolute inset-0"
+              >
+                <EmblaCarousel
+                  images={projectData.gallery}
+                  className="h-full"
+                />
+              </FadeContent>
+            </AnimatePresence>
+          </div>
+          <div
+            id="inquiry-form"
+            className="relative order-1 flex w-full flex-col gap-6 px-6 md:px-0 lg:order-2 lg:max-w-[40%] lg:flex-[40%] lg:gap-11"
+          >
+            <p className="text-xl md:text-2xl">Fill the form for more info</p>
+            <InquiryForm inquiringForm={projectData.name} />
+          </div>
+        </section>
+      </div>
+    </>
   );
 }
 

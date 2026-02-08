@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useHomeScrollAnimations } from "@/hooks/useHomeScrollAnimations";
-import { useNavbar } from "@/contexts/NavbarContext";
 import { useSearchParams } from "next/navigation";
 
 const projectLogos = [
@@ -77,9 +76,12 @@ export function SocialLinks({
   );
 }
 
-function ContactButton() {
+function ContactButton({ onClick }: { onClick?: () => void }) {
   return (
-    <button className="text-sm font-medium tracking-wide md:px-6 md:py-2">
+    <button
+      onClick={onClick}
+      className="text-sm font-medium tracking-wide md:px-6 md:py-2"
+    >
       CONTACT US
     </button>
   );
@@ -116,8 +118,13 @@ export const LOGO_TO_SIZE_MAP: Record<string, string> = {
   kukun: "h-5 w-24",
 };
 
-export function Navbar() {
-  const { variant } = useNavbar();
+export function Navbar({
+  variant,
+  onContactClick,
+}: {
+  variant: "projects" | "home";
+  onContactClick?: () => void;
+}) {
   const { navElementsY, navElementsOpacity } = useHomeScrollAnimations();
 
   const isProjects = variant === "projects";
@@ -148,7 +155,7 @@ export function Navbar() {
           {/* Right: Social Links + Contact - hidden on mobile */}
           <div className="hidden flex-1 shrink-0 items-center justify-end gap-4 md:flex lg:gap-6">
             <SocialLinks />
-            <ContactButton />
+            <ContactButton onClick={onContactClick} />
           </div>
         </>
       ) : (
@@ -186,7 +193,7 @@ export function Navbar() {
               y: navElementsY,
             }}
           >
-            <ContactButton />
+            <ContactButton onClick={onContactClick} />
           </motion.div>
         </>
       )}
