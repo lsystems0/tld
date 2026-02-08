@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Navbar } from "@/components/layout/Navbar";
 import { NavbarProvider } from "@/contexts/NavbarContext";
 import "./globals.css";
+import { Footer } from "@/components/layout/Footer";
 
 const sfPro = localFont({
   src: [
@@ -36,6 +37,7 @@ export default function RootLayout({
         <NavbarProvider>
           <Navbar />
           {children}
+          <Footer />
         </NavbarProvider>
       </body>
     </html>

@@ -25,9 +25,15 @@ const projectLogos = [
   },
 ];
 
-function SocialLinks() {
+export function SocialLinks({
+  size = "normal",
+}: {
+  size?: "large" | "normal";
+}) {
   return (
-    <div className="flex gap-4 md:gap-6">
+    <div
+      className={`flex ${size === "large" ? "gap-6 md:gap-8" : "gap-4 md:gap-6"}`}
+    >
       <Link
         href="https://www.instagram.com/thelanddevelopers"
         target="_blank"
@@ -38,7 +44,7 @@ function SocialLinks() {
           width={21}
           height={20}
           alt="instagram account"
-          className="size-4 md:size-5"
+          className={size === "large" ? "size-6 md:size-6" : "size-4 md:size-5"}
         />
       </Link>
       <Link
@@ -51,7 +57,7 @@ function SocialLinks() {
           width={21}
           height={20}
           alt="facebook page"
-          className="size-4 md:size-5"
+          className={size === "large" ? "size-6 md:size-6" : "size-4 md:size-5"}
         />
       </Link>
       <Link
@@ -64,7 +70,7 @@ function SocialLinks() {
           width={21}
           height={20}
           alt="linkedin account"
-          className="size-4 md:size-5"
+          className={size === "large" ? "size-6 md:size-6" : "size-4 md:size-5"}
         />
       </Link>
     </div>
