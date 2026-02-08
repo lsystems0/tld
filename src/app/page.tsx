@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useHomeScrollAnimations } from "@/hooks/useHomeScrollAnimations";
 import { useNavbar } from "@/contexts/NavbarContext";
 import { BracketedChild } from "@/components/ui/BracketedChild";
+import { LOGO_TO_SIZE_MAP } from "@/components/layout/Navbar";
 
 export default function Home() {
   const {
@@ -75,7 +76,7 @@ export default function Home() {
                   width={96}
                   height={28}
                   alt="Kukun"
-                  className="h-7 w-24 object-contain"
+                  className={`${LOGO_TO_SIZE_MAP["kukun"]} object-contain`}
                 />
               </Link>
               <Link
@@ -87,7 +88,7 @@ export default function Home() {
                   width={96}
                   height={28}
                   alt="Armonia"
-                  className="h-7 w-24 object-contain"
+                  className={`${LOGO_TO_SIZE_MAP["armonia"]} object-contain`}
                 />
               </Link>
               <Link
@@ -99,7 +100,7 @@ export default function Home() {
                   width={96}
                   height={28}
                   alt="il bayou"
-                  className="h-7 w-24 object-contain pt-2"
+                  className={`${LOGO_TO_SIZE_MAP["ilbayou"]} object-contain`}
                 />
               </Link>
             </div>

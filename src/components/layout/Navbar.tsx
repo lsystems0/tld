@@ -110,7 +110,7 @@ function ProjectLogos() {
   );
 }
 
-const LOGO_TO_SIZE_MAP: Record<string, string> = {
+export const LOGO_TO_SIZE_MAP: Record<string, string> = {
   armonia: "h-6 w-36",
   ilbayou: "pt-[6px] h-8 w-28",
   kukun: "h-5 w-24",
