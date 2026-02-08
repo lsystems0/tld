@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Footer } from "@/components/layout/Footer";
 
 const sfPro = localFont({
   src: [
@@ -33,7 +32,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${sfPro.variable} font-sf antialiased`}>
         {children}
-        <Footer />
       </body>
     </html>
   );

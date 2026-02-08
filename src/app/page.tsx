@@ -1,12 +1,26 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useHomeScrollAnimations } from "@/hooks/useHomeScrollAnimations";
 import { BracketedChild } from "@/components/ui/BracketedChild";
 import { LOGO_TO_SIZE_MAP, Navbar } from "@/components/layout/Navbar";
+import { InquiryForm } from "@/components/InquiryForm";
 
 export default function Home() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const {
     heroWidth,
     heroHeight,
@@ -15,12 +29,31 @@ export default function Home() {
     bottomElementsOpacity,
   } = useHomeScrollAnimations({ enableSnap: true });
 
+  const toggleForm = () => setIsFormOpen(!isFormOpen);
+
+  // Form width on desktop
+  const formWidth = 380;
+
   return (
     <>
-      <Navbar variant="home" />
-      <div className="relative h-[150vh]">
-        {/* Fixed hero section that shrinks on scroll */}
-        <div className="fixed inset-0 h-screen w-screen overflow-hidden">
+      <Navbar variant="home" onContactClick={toggleForm} />
+
+      {/* Main content - shifts left when form opens by animating 'right' position */}
+      <motion.div
+        className="relative h-[150vh]"
+        animate={{
+          marginRight: mounted && !isMobile && isFormOpen ? formWidth : 0,
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      >
+        {/* Fixed hero section - animates right position to make room for form */}
+        <motion.div
+          className="fixed top-0 bottom-0 left-0 overflow-hidden"
+          animate={{
+            right: mounted && !isMobile && isFormOpen ? formWidth : 0,
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        >
           {/* Blackish background that gets revealed */}
           <div className="absolute inset-0 bg-[#141414]" />
 
@@ -39,12 +72,12 @@ export default function Home() {
               width={1920}
               height={1080}
               alt=""
-              className="absolute inset-0 h-full w-full object-cover"
+              className="h-full w-full object-cover"
               priority
             />
           </motion.div>
 
-          <div className="absolute top-22 right-0 left-0 flex h-[calc(100vh-7.5rem)] w-screen flex-col items-center justify-around text-center">
+          <div className="absolute top-22 right-0 left-0 flex h-[calc(100vh-7.5rem)] flex-col items-center justify-around text-center">
             <BracketedChild spacing="wide">
               <p className="z-1 px-4 text-lg whitespace-nowrap md:text-2xl">
                 WE DON&apos;T RUSH FOUNDATIONS,
@@ -100,28 +133,79 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </motion.div>
+      </motion.div>
 
-          {/* Bottom elements that slide up */}
-          <motion.div
-            className="absolute inset-x-0 bottom-4 flex w-screen items-center justify-between px-4 md:bottom-8 md:px-24"
-            style={{
-              y: bottomElementsY,
-              opacity: bottomElementsOpacity,
-            }}
+      {/* Bottom elements - fixed at full width, does NOT shift with form */}
+      <motion.div
+        className="fixed inset-x-0 bottom-4 z-40 flex w-screen items-center justify-between px-4 md:bottom-8 md:px-24"
+        style={{
+          y: bottomElementsY,
+          opacity: bottomElementsOpacity,
+        }}
+      >
+        <p className="text-[10px] whitespace-nowrap md:text-base">
+          THE RIGHT CHOICE
+        </p>
+        <Image
+          src="/logos/the-land-developers.png"
+          width={243}
+          height={12}
+          alt="the land developers logo"
+          className="w-40 object-contain md:w-60"
+        />
+      </motion.div>
+
+      {/* Form panel - slides in from the right */}
+      <motion.div
+        className="fixed top-0 right-0 z-30 h-screen overflow-y-auto bg-[#141414]"
+        initial={{ width: 0 }}
+        animate={{
+          width: isMobile
+            ? isFormOpen
+              ? "100%"
+              : 0
+            : isFormOpen
+              ? formWidth
+              : 0,
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      >
+        <div className="relative flex h-full w-full flex-col items-center justify-center p-10">
+          {/* Close button - inside the form panel so it slides with it */}
+          <motion.button
+            onClick={toggleForm}
+            className="absolute top-24 right-6 p-2 text-[#ededed] transition-colors hover:text-white"
+            aria-label="Close form"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isFormOpen ? 1 : 0 }}
+            transition={{ duration: 0.2, delay: isFormOpen ? 0.2 : 0 }}
           >
-            <p className="text-[10px] whitespace-nowrap md:text-base">
-              THE RIGHT CHOICE
-            </p>
-            <Image
-              src="/logos/the-land-developers.png"
-              width={243}
-              height={12}
-              alt="the land developers logo"
-              className="w-40 object-contain md:w-60"
-            />
-          </motion.div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </motion.button>
+
+          {/* Simple centered form */}
+          <div className="w-full max-w-sm">
+            <h2 className="mb-8 text-center text-2xl font-medium tracking-wide">
+              CONTACT US
+            </h2>
+            <InquiryForm />
+          </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

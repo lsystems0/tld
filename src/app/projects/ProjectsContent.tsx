@@ -8,6 +8,7 @@ import { InquiryForm } from "@/components/InquiryForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { BracketedChild } from "@/components/ui/BracketedChild";
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 function FadeImage({
   src,
@@ -250,6 +251,7 @@ export function ProjectsContent() {
           </div>
         </section>
       </div>
+      <Footer />
     </>
   );
 }

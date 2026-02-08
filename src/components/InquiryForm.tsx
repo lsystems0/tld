@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
+import Link from "next/link";
 
 interface InquiryFormProps {
   inquiringForm?: string;
@@ -163,7 +164,14 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
         )}
       </form.Field>
 
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <Link
+          href="tel:16170"
+          className="ml-2 flex flex-col items-center justify-center"
+        >
+          <p className="font-bold">CALL US AT</p>
+          <p className="underline">16170</p>
+        </Link>
         <form.Subscribe
           selector={(state) => [state.canSubmit, state.isSubmitting]}
         >
@@ -171,7 +179,7 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
             <button
               type="submit"
               disabled={!canSubmit || isSubmitting}
-              className="w-full border border-[#444] px-8 py-2.5 text-sm tracking-wide uppercase transition-colors hover:bg-[#ededed] hover:text-[#141414] disabled:cursor-not-allowed disabled:opacity-50 md:w-auto md:px-12 md:py-3"
+              className="w-auto border border-[#444] px-8 py-2.5 text-sm tracking-wide uppercase transition-colors hover:bg-[#ededed] hover:text-[#141414] disabled:cursor-not-allowed disabled:opacity-50 md:px-12 md:py-3"
             >
               {isSubmitting ? "SUBMITTING..." : "SUBMIT"}
             </button>

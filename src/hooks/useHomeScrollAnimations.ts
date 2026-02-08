@@ -4,60 +4,38 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useScroll, useTransform } from "framer-motion";
 
 // ── Snap thresholds ──────────────────────────────────────────────────
-// Fraction of scrollYProgress at which the snap triggers.
-// SNAP_FORWARD_AT: when scrolling down, snap to bottom once past this.
-// SNAP_REVERSE_AT: when scrolling up, snap to top once past this.
-// Both are measured from the top (0 = top, 1 = fully scrolled).
-
-const SNAP_FORWARD_AT = 0.10;
-const SNAP_REVERSE_AT = 0.90;
-
-// Duration of the snap animation in milliseconds.
+const SNAP_FORWARD_AT = 0.1;
+const SNAP_REVERSE_AT = 0.9;
 const SNAP_DURATION_MS = 900;
 
 // ── Scroll animation timing ─────────────────────────────────────────
-// All ranges are expressed as fractions of scrollYProgress (0 → 1).
-
 const HERO_ANIMATION_START = 0;
 const HERO_ANIMATION_END = 0.5;
-
-// Nav + bottom bar share the same timing so they animate in sync.
 const ENTRANCE_ANIMATION_START = 0;
 const ENTRANCE_ANIMATION_END = 0.2;
 
 // ── Hero crop configuration (percentages) ───────────────────────────
-// Desktop values
 const HERO_WIDTH_START_DESKTOP = 100;
 const HERO_WIDTH_END_DESKTOP = 60;
 const HERO_HEIGHT_START_DESKTOP = 100;
 const HERO_HEIGHT_END_DESKTOP = 25;
 
-// Mobile values (customize these as needed)
 const HERO_WIDTH_START_MOBILE = 100;
 const HERO_WIDTH_END_MOBILE = 80;
 const HERO_HEIGHT_START_MOBILE = 100;
 const HERO_HEIGHT_END_MOBILE = 20;
 
 // ── Slide distances ─────────────────────────────────────────────────
-
-const NAV_START_Y = -100; // starts above viewport
+const NAV_START_Y = -100;
 const NAV_END_Y = 0;
-
-const BOTTOM_START_Y = 100; // starts below viewport
+const BOTTOM_START_Y = 100;
 const BOTTOM_END_Y = 0;
 
 // ── Easing ───────────────────────────────────────────────────────────
-
 function easeInOutCubic(t: number): number {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-// ─────────────────────────────────────────────────────────────────────
-
-/**
- * Smoothly animate window.scrollTo over `duration` ms using
- * requestAnimationFrame so we control the speed (not the browser).
- */
 function smoothScrollTo(targetY: number, duration: number): Promise<void> {
   return new Promise((resolve) => {
     const startY = window.scrollY;
@@ -82,9 +60,6 @@ function smoothScrollTo(targetY: number, duration: number): Promise<void> {
   });
 }
 
-// ─────────────────────────────────────────────────────────────────────
-
-// Media query helper
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -103,8 +78,6 @@ function useIsMobile() {
 export function useHomeScrollAnimations(options?: { enableSnap?: boolean }) {
   const { scrollYProgress } = useScroll();
   const isSnapping = useRef(false);
-  // Track whether we're in the "open" (scrolled-down) or "closed" (top) state
-  // to avoid re-triggering in the same direction.
   const snappedState = useRef<"top" | "bottom">("top");
   const isMobile = useIsMobile();
   const enableSnap = options?.enableSnap ?? false;
@@ -113,7 +86,6 @@ export function useHomeScrollAnimations(options?: { enableSnap?: boolean }) {
   const handleSnap = useCallback((latest: number) => {
     if (isSnapping.current) return;
 
-    // Scrolling down past forward threshold → snap to bottom
     if (
       latest >= SNAP_FORWARD_AT &&
       latest < 1 &&
@@ -126,9 +98,7 @@ export function useHomeScrollAnimations(options?: { enableSnap?: boolean }) {
         snappedState.current = "bottom";
         isSnapping.current = false;
       });
-    }
-    // Scrolling up past reverse threshold → snap to top
-    else if (
+    } else if (
       latest <= SNAP_REVERSE_AT &&
       latest > 0 &&
       snappedState.current === "bottom"
@@ -141,7 +111,6 @@ export function useHomeScrollAnimations(options?: { enableSnap?: boolean }) {
     }
   }, []);
 
-  // Subscribe to scroll progress changes (only if snap is enabled)
   useEffect(() => {
     if (!enableSnap) return;
     const unsubscribe = scrollYProgress.on("change", handleSnap);
@@ -151,7 +120,6 @@ export function useHomeScrollAnimations(options?: { enableSnap?: boolean }) {
   // ── Animation transforms ─────────────────────────────────────────
 
   // Hero image container crops by reducing width/height
-  // Use different values for mobile vs desktop
   const heroWidthStart = isMobile
     ? HERO_WIDTH_START_MOBILE
     : HERO_WIDTH_START_DESKTOP;
@@ -206,14 +174,11 @@ export function useHomeScrollAnimations(options?: { enableSnap?: boolean }) {
   );
 
   return {
-    // Hero
     heroWidth,
     heroHeight,
     heroOpacity,
-    // Navbar
     navElementsY,
     navElementsOpacity,
-    // Bottom bar
     bottomElementsY,
     bottomElementsOpacity,
   };
