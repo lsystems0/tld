@@ -94,7 +94,8 @@ function ProjectLogos() {
               alt={logo.alt}
               width={120}
               height={40}
-              className={`${project === projectKey ? "opacity-100" : "opacity-45"} ${projectKey === "ilbayou" ? "pt-1 md:pt-2" : ""} h-6 md:h-8 w-auto hover:opacity-100 transition-opacity`}
+              className={`${project === projectKey ? "opacity-100" : "opacity-45"} ${LOGO_TO_SIZE_MAP[projectKey]} min-h-0 min-w-0 transition-opacity hover:opacity-100`}
+              unoptimized
             />
           </Link>
         );
@@ -102,6 +103,12 @@ function ProjectLogos() {
     </div>
   );
 }
+
+const LOGO_TO_SIZE_MAP: Record<string, string> = {
+  armonia: "h-6 w-36",
+  ilbayou: "pt-[6px] h-8 w-28",
+  kukun: "h-5 w-24",
+};
 
 export function Navbar() {
   const { variant } = useNavbar();
@@ -128,7 +135,7 @@ export function Navbar() {
           </div>
 
           {/* Center: Project Logos */}
-          <div className="flex flex-1 justify-center px-2 md:px-4">
+          <div className="flex flex-1 items-center justify-center px-2 pb-2 md:px-4 md:pb-0">
             <ProjectLogos />
           </div>
 

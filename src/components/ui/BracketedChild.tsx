@@ -20,10 +20,3 @@ export function BracketedChild({
     </div>
   );
 }
-
-/*
-        <p className="z-1 px-4 text-lg whitespace-nowrap md:text-2xl">
-          WE DON&apos;T RUSH FOUNDATIONS,
-        </p>
-        <p className="z-1 px-4 text-lg md:text-2xl">EVEN ONLINE.</p>
-        */
