@@ -115,7 +115,7 @@ export function Navbar() {
         // Projects layout: Logo (left) | Project logos (center) | Social + Contact (right)
         <>
           {/* Left: Main Logo */}
-          <div className="flex shrink-0 justify-start">
+          <div className="flex shrink-0 justify-start md:flex-1">
             <Link href="/">
               <Image
                 src="/logo.png"
@@ -133,7 +133,7 @@ export function Navbar() {
           </div>
 
           {/* Right: Social Links + Contact - hidden on mobile */}
-          <div className="hidden shrink-0 items-center justify-end gap-4 md:flex lg:gap-6">
+          <div className="hidden flex-1 shrink-0 items-center justify-end gap-4 md:flex lg:gap-6">
             <SocialLinks />
             <ContactButton />
           </div>

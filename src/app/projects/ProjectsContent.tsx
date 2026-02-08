@@ -7,7 +7,7 @@ import Link from "next/link";
 import { EmblaCarousel } from "@/components/ui/EmblaCarousel";
 import { InquiryForm } from "@/components/InquiryForm";
 import { motion, AnimatePresence } from "framer-motion";
-import { WeDontRush } from "@/components/ui/WeDontRush";
+import { BracketedChild } from "@/components/ui/BracketedChild";
 
 function FadeImage({
   src,
@@ -116,7 +116,12 @@ export function ProjectsContent() {
           />
         </AnimatePresence>
 
-        <WeDontRush />
+        <BracketedChild spacing="normal">
+          <p className="z-1 px-4 text-lg whitespace-nowrap md:text-2xl">
+            {projectData.tagline}
+          </p>
+        </BracketedChild>
+
         {projectData.is_real && (
           <p className="absolute bottom-10 flex-1 self-start text-[10px] whitespace-nowrap md:hidden">
             A REAL LIFE SHOT
@@ -243,7 +248,7 @@ const PROJECTS = [
   {
     id: "armonia",
     name: "Armonia",
-    tagline: "",
+    tagline: "The Right Community",
     logo: "/logos/armonia.svg",
     brochure:
       "https://drive.google.com/file/d/1A7qYOM9gZTLfWKeal28oZit00VPvfWRM/view",
@@ -271,7 +276,7 @@ const PROJECTS = [
   {
     id: "ilbayou",
     name: "Il Bayou",
-    tagline: "",
+    tagline: "The Right Destination",
     logo: "/logos/ilbayou.svg",
     brochure:
       "https://drive.google.com/file/d/1wR-vo-NwooVIYNugXmlQk2ZcnR-vhYDU/view",
@@ -299,7 +304,7 @@ const PROJECTS = [
   {
     id: "kukun",
     name: "Kukun",
-    tagline: "",
+    tagline: "The Right Balance",
     logo: "/logos/kukun.svg",
     brochure:
       "https://drive.google.com/file/d/1pwY58cR-AsjDnOSjTRdzmO2CRP9JVoQI/view",
