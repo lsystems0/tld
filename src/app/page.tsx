@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll } from "framer-motion";
 import { useHomeScrollAnimations } from "@/hooks/useHomeScrollAnimations";
 import { BracketedChild } from "@/components/ui/BracketedChild";
 import { LOGO_TO_SIZE_MAP, Navbar } from "@/components/layout/Navbar";
@@ -12,6 +12,8 @@ export default function Home() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [hoverFlash, setHoverFlash] = useState<number | null>(null);
+  const hasAnimatedOnScroll = useRef(false);
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -37,6 +39,21 @@ export default function Home() {
     };
     // prettier-ignore
   }, []);
+
+  // Trigger hover flash when entrance animation completes (scrollYProgress >= 0.2)
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      if (latest >= 0.2 && !hasAnimatedOnScroll.current) {
+        hasAnimatedOnScroll.current = true;
+        setHoverFlash(-1);
+        setTimeout(() => {
+          setHoverFlash(null);
+        }, 600);
+      }
+    });
+
+    return unsubscribe;
+  }, [scrollYProgress]);
 
   const {
     heroWidth,

@@ -14,9 +14,14 @@ function FadeImage({
   src,
   alt,
   className,
-  ...props
+  width,
+  height,
+  priority,
 }: {
-  src: string;
+  src: {
+    desktop: string;
+    mobile: string;
+  };
   alt: string;
   className?: string;
   width?: number;
@@ -32,10 +37,20 @@ function FadeImage({
       className="absolute inset-0"
     >
       <Image
-        src={src}
+        src={src.desktop}
         alt={alt}
-        className={`${className || ""} h-full w-full object-cover`}
-        {...props}
+        className={`${className || ""} hidden h-full w-full object-cover md:block`}
+        width={width}
+        height={height}
+        priority={priority}
+      />
+      <Image
+        src={src.mobile}
+        alt={alt}
+        className={`${className || ""} h-full w-full object-contain md:hidden`}
+        width={width}
+        height={height}
+        priority={priority}
       />
     </motion.div>
   );
@@ -119,39 +134,6 @@ export function ProjectsContent() {
               priority
             />
           </AnimatePresence>
-
-          <BracketedChild spacing="normal">
-            <p className="z-1 px-4 text-lg whitespace-nowrap md:text-2xl">
-              {projectData.tagline}
-            </p>
-          </BracketedChild>
-
-          {projectData.is_real && (
-            <p className="absolute bottom-10 flex-1 self-start text-[10px] whitespace-nowrap md:hidden">
-              A REAL LIFE SHOT
-            </p>
-          )}
-          <div className="absolute inset-x-0 bottom-4 z-1 flex w-screen items-center justify-between px-4 md:bottom-8 md:h-18 md:items-end md:px-24">
-            <p className="flex-1 text-start text-xs whitespace-nowrap md:text-base">
-              THE RIGHT CHOICE
-            </p>
-
-            {projectData.is_real && (
-              <p className="hidden flex-1 self-start text-sm whitespace-nowrap md:block">
-                A REAL LIFE SHOT
-              </p>
-            )}
-
-            <div className="flex-1">
-              <Image
-                src={projectData.developer_logo}
-                width={243}
-                height={12}
-                className={`ml-auto object-contain ${projectData.name === "Kukun" ? "w-24 md:w-35" : "w-40 md:w-60"}`}
-                alt=""
-              />
-            </div>
-          </div>
         </section>
 
         {/* Description Section */}
@@ -260,7 +242,6 @@ const PROJECTS = [
   {
     id: "armonia",
     name: "Armonia",
-    tagline: "The Right Community",
     logo: "/logos/armonia.svg",
     brochure:
       "https://drive.google.com/file/d/1A7qYOM9gZTLfWKeal28oZit00VPvfWRM/view",
@@ -268,27 +249,26 @@ const PROJECTS = [
       "Discover a rhythm of life where nature and architecture coexist. Armonia, located in the heart of the New Capital's R7 district, offers a rare standard of living across 42 acres, exclusively featuring stand-alone buildings. Designed for privacy without isolation, it's more than a home, it's a daily practice in balance, comfort, and peace, where every element harmonizes with its surroundings to elevate everyday life.",
     description_img:
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUbXfuNLm8zh4rOgUWebVZFDnA1NdTmpo6u7fc",
-    hero_img:
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUDSBS4H05XgUufbkFidheEQ67YyqGSTKnL4jD",
-    is_real: true,
-    developer_logo: "/logos/the-land-developers.png",
+    hero_img: {
+      desktop:
+        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUsP6Lhk9tcYkA3boXP8aFfpWyTl4wnhrLBOde",
+      mobile:
+        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUM7ZcyW7XtFquGZS9IC4idahYjrWKNDkgElHc",
+    },
     gallery: [
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUvoXwNHnerNGDP9xF3KhLHjzpZu75S6mT8JEs",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUMJfpQsXtFquGZS9IC4idahYjrWKNDkgElHcV",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU0FtLNOpQHwPTbFXjBnRVIDCWoGhm7ukr1KaY",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUONb4nxbUNWDGbqk3VnXtS7QfAUB5aT80pZio",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUbvDQflm8zh4rOgUWebVZFDnA1NdTmpo6u7fc",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUJtpIY2FEX4jMQOUFrhd3NZkLB8Vp1IYwDbqx",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUzWLIfzGKgdqVm4nAx1pH5lIDvCfQYLrO96WN",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUwXMiCi7YkxvyHDt7MbnhZsP3RiomYcKlIdpr",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUp7L4KdlnRgmws3BiOYMLfd4A9FPIQ6eEDGko",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUW9d3wJr3VhLcZ8yDwzu2IYQJpNC09orSTXH1",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUcdIIpQAEm9OA7hCnkDJ6KoULdluYz1ZexrHf",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUpcPciXlnRgmws3BiOYMLfd4A9FPIQ6eEDGko",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUwXM2jpsYkxvyHDt7MbnhZsP3RiomYcKlIdpr",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUy0bB9N2lWTpPnz9uk7c5tQEFxOw2BGgeHSXU",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU2ZBSE2wjJQ7gcmVUaA8SrXPtIp6KDzk0w9Ro",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU5o1i5mJgtm0Df4R7MWkOawGsSoxI2UpLcNXv",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUgKQxakPbZw24lETdoxuyrnp8Uf3RQXPL09BD",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUXfYNNBTMo3e5JNistYa0qELOG8zX2w1vWRPK",
     ],
   },
   {
     id: "ilbayou",
     name: "Il Bayou",
-    tagline: "The Right Destination",
     logo: "/logos/ilbayou.svg",
     brochure:
       "https://drive.google.com/file/d/1wR-vo-NwooVIYNugXmlQk2ZcnR-vhYDU/view",
@@ -296,27 +276,27 @@ const PROJECTS = [
       "il bayou is an exclusive fully-serviced compound nestled along the pristine shores of Sahl Hasheesh, Red Sea. Spanning 30 acres, it offers a rare balance between tranquility and accessibility, with beautifully crafted chalets and townhouses. Designed to harmonize with nature, il bayou provides a sanctuary of beauty and relaxation, where every element invites serenity and enhances the coastal living experience. With its seamless connection to both nature and community, this destination delivers a unique, year-round Red Sea experience.",
     description_img:
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUKr5ii5FhEdFokqmHTMRUPXaNSJl8tDzh5Afu",
-    hero_img:
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUAIig3LqpACgowyT1VWNGu0B8mjPan7RMHfEJ",
-    is_real: true,
-    developer_logo: "/logos/the-land-developers.png",
+    hero_img: {
+      desktop:
+        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUMUi6kMXtFquGZS9IC4idahYjrWKNDkgElHcV",
+      mobile:
+        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU52nOuiJgtm0Df4R7MWkOawGsSoxI2UpLcNXv",
+    },
     gallery: [
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU7EE4O8GBXYZl2ru4wR6OkWEJ0mUDpzHfATB9",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUqpzmoF55CpWLZ6JrDMzxeRE1g4OV9lsUdImk",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUJyjQDxFEX4jMQOUFrhd3NZkLB8Vp1IYwDbqx",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUumtgogyjH8QDhKbr4nMgTUYaR9VidJql3WAL",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUgJMcdkPbZw24lETdoxuyrnp8Uf3RQXPL09BD",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUFP3GxG8XVmCgMkO24LYuBpjZ7fUeKiqaIh6n",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU7OHj1aBXYZl2ru4wR6OkWEJ0mUDpzHfATB98",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU8095igyhnKtk2DMdX34OY9jvAel1EqLBGxUR",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUsGmVU19tcYkA3boXP8aFfpWyTl4wnhrLBOde",
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUXZ5X3vTMo3e5JNistYa0qELOG8zX2w1vWRPK",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUgDBqzNfPbZw24lETdoxuyrnp8Uf3RQXPL09B",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUVNleEwDB1OP76Vy9KELhGioZFCS8IcNvWDM0",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUYTfuSIVMAlMGPmEOI0k8oKC5j7T9drBWfFXg",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUAP1fVgqpACgowyT1VWNGu0B8mjPan7RMHfEJ",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUPS8tdpVsdjAGL38J4QrUOMgt6v9XlfzZI25V",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUXNEQlTMo3e5JNistYa0qELOG8zX2w1vWRPKU",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUCmAX7ZsF0HrBStzUDPTOsY4mKpAhV5deyqMi",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUPkkx7KVsdjAGL38J4QrUOMgt6v9XlfzZI25V",
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUxfRngGIKqFXmAIS8YBhWMkyGrNe3R9JD5w7l",
     ],
   },
   {
     id: "kukun",
     name: "Kukun",
-    tagline: "The Right Balance",
     logo: "/logos/kukun.svg",
     brochure:
       "https://drive.google.com/file/d/1pwY58cR-AsjDnOSjTRdzmO2CRP9JVoQI/view",
@@ -324,10 +304,12 @@ const PROJECTS = [
       "Kukūn is a wellness-integrated boutique compound in the heart of Mostakbal City, designed to balance privacy and community with refined architecture and a lifestyle-driven vision. Spanning 20 acres, the development features landscaped valleys, a central canal, and a wellness-focused clubhouse that cultivates connection, calm, and belonging. Offering a unique blend of townhouses, Kukūn is where luxury meets purpose, creating an environment that encourages relaxation, mindfulness, and modern living.",
     description_img:
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUesgsu73QKu049YfMCrcjH67XdsEi3v1SLbh5",
-    hero_img:
-      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU0IrKBBpQHwPTbFXjBnRVIDCWoGhm7ukr1KaY",
-    is_real: false,
-    developer_logo: "/logos/mostakbal-city-logo-white.svg",
+    hero_img: {
+      desktop:
+        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUQiACkTSdIfyX6DvbAHqLRuSY5TOs2woGkEh1",
+      mobile:
+        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUmChVkZ6Qnq4XxVGZRJzdtCyPoFlrw9sbaNvB",
+    },
     gallery: [
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU5RBBwfJgtm0Df4R7MWkOawGsSoxI2UpLcNXv",
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU8mL6PdgyhnKtk2DMdX34OY9jvAel1EqLBGxU",
