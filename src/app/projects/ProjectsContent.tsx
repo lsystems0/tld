@@ -155,9 +155,9 @@ export function ProjectsContent() {
         </section>
 
         {/* Description Section */}
-        <section className="flex flex-col items-center justify-center gap-8 p-6 md:p-12 lg:flex-row lg:gap-16 lg:p-24">
-          <div className="flex w-full flex-col gap-8 lg:max-w-[40%] lg:flex-[40%] lg:gap-16">
-            <div className="relative flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+        <section className="flex flex-col items-center justify-center gap-8 px-0 pt-8 pb-14 md:p-12 lg:flex-row lg:gap-16 lg:p-24">
+          <div className="flex w-full flex-col gap-8 p-6 md:p-0 lg:max-w-[40%] lg:flex-[40%] lg:gap-16">
+            <div className="relative flex flex-col items-start justify-between gap-4">
               <div className="relative h-12 w-full md:h-14 md:w-72.5">
                 <AnimatePresence mode="popLayout">
                   <motion.div
@@ -203,7 +203,7 @@ export function ProjectsContent() {
               </AnimatePresence>
             </div>
           </div>
-          <div className="relative h-40 w-full md:h-80 lg:h-104 lg:max-w-[60%] lg:flex-[60%]">
+          <div className="relative h-60 w-full md:h-80 lg:flex-[60%]">
             <AnimatePresence mode="popLayout">
               <FadeContent
                 key={`desc-img-${currentProject}`}
