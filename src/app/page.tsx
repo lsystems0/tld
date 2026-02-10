@@ -94,41 +94,41 @@ export default function Home() {
                 <br /> ESTABLISHED PROJECTS
               </p>
               <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12">
-                <Link
-                  href="/projects?project=kukun"
-                  className="opacity-45 transition-opacity hover:opacity-100"
-                >
-                  <Image
-                    src="/logos/kukun.svg"
-                    width={96}
-                    height={28}
-                    alt="Kukun"
-                    className={`${LOGO_TO_SIZE_MAP["kukun"]} object-contain`}
-                  />
+                <Link href="/projects?project=kukun">
+                  <div className="group flex flex-col gap-2">
+                    <Image
+                      src="/logos/kukun.svg"
+                      width={96}
+                      height={28}
+                      alt="Kukun"
+                      className={`${LOGO_TO_SIZE_MAP["kukun"]} object-contain opacity-45 transition-opacity group-hover:opacity-100`}
+                    />
+                    <div className="h-0.5 w-0 bg-white transition-[width] group-hover:w-full"></div>
+                  </div>
                 </Link>
-                <Link
-                  href="/projects?project=armonia"
-                  className="opacity-45 transition-opacity hover:opacity-100"
-                >
-                  <Image
-                    src="/logos/armonia.svg"
-                    width={96}
-                    height={28}
-                    alt="Armonia"
-                    className={`${LOGO_TO_SIZE_MAP["armonia"]} object-contain`}
-                  />
+                <Link href="/projects?project=armonia">
+                  <div className="group flex flex-col gap-2">
+                    <Image
+                      src="/logos/armonia.svg"
+                      width={96}
+                      height={28}
+                      alt="Armonia"
+                      className={`${LOGO_TO_SIZE_MAP["armonia"]} object-contain opacity-45 transition-opacity hover:opacity-100`}
+                    />
+                    <div className="h-0.5 w-0 bg-white transition-[width] group-hover:w-full"></div>
+                  </div>
                 </Link>
-                <Link
-                  href="/projects?project=ilbayou"
-                  className="opacity-45 transition-opacity hover:opacity-100"
-                >
-                  <Image
-                    src="/logos/ilbayou.svg"
-                    width={96}
-                    height={28}
-                    alt="il bayou"
-                    className={`${LOGO_TO_SIZE_MAP["ilbayou"]} object-contain`}
-                  />
+                <Link href="/projects?project=ilbayou">
+                  <div className="group flex flex-col gap-2">
+                    <Image
+                      src="/logos/ilbayou.svg"
+                      width={96}
+                      height={28}
+                      alt="il bayou"
+                      className={`${LOGO_TO_SIZE_MAP["ilbayou"]} object-contain opacity-45 transition-opacity hover:opacity-100`}
+                    />
+                    <div className="h-0.5 w-0 bg-white transition-[width] group-hover:w-full"></div>
+                  </div>
                 </Link>
               </div>
             </div>
