@@ -11,14 +11,31 @@ import { InquiryForm } from "@/components/InquiryForm";
 export default function Home() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [hoverFlash, setHoverFlash] = useState<number | null>(null);
 
   useEffect(() => {
-    setMounted(true);
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+
+    // Trigger hover flash animation on page load (all at once)
+    const timeouts: NodeJS.Timeout[] = [];
+    timeouts.push(
+      setTimeout(() => {
+        setHoverFlash(-1); // Special value to trigger all
+        timeouts.push(
+          setTimeout(() => {
+            setHoverFlash(null);
+          }, 600),
+        );
+      }, 900),
+    );
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      timeouts.forEach(clearTimeout);
+    };
+    // prettier-ignore
   }, []);
 
   const {
@@ -42,7 +59,7 @@ export default function Home() {
       <motion.div
         className="relative h-[150vh]"
         animate={{
-          marginRight: mounted && !isMobile && isFormOpen ? formWidth : 0,
+          marginRight: !isMobile && isFormOpen ? formWidth : 0,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
@@ -50,7 +67,7 @@ export default function Home() {
         <motion.div
           className="fixed top-0 bottom-0 left-0 overflow-hidden"
           animate={{
-            right: mounted && !isMobile && isFormOpen ? formWidth : 0,
+            right: !isMobile && isFormOpen ? formWidth : 0,
           }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
@@ -101,9 +118,11 @@ export default function Home() {
                       width={96}
                       height={28}
                       alt="Kukun"
-                      className={`${LOGO_TO_SIZE_MAP["kukun"]} object-contain opacity-45 transition-opacity group-hover:opacity-100`}
+                      className={`${LOGO_TO_SIZE_MAP["kukun"]} object-contain opacity-45 transition-opacity duration-500 group-hover:opacity-100 ${hoverFlash === 0 || hoverFlash === -1 ? "opacity-100!" : ""}`}
                     />
-                    <div className="h-0.5 w-0 bg-white transition-[width] group-hover:w-full"></div>
+                    <div
+                      className={`h-0.5 bg-white transition-[width] duration-500 group-hover:w-full ${hoverFlash === 0 || hoverFlash === -1 ? "w-full" : "w-0"}`}
+                    ></div>
                   </div>
                 </Link>
                 <Link href="/projects?project=armonia">
@@ -113,9 +132,11 @@ export default function Home() {
                       width={96}
                       height={28}
                       alt="Armonia"
-                      className={`${LOGO_TO_SIZE_MAP["armonia"]} object-contain opacity-45 transition-opacity hover:opacity-100`}
+                      className={`${LOGO_TO_SIZE_MAP["armonia"]} object-contain opacity-45 transition-opacity duration-500 group-hover:opacity-100 ${hoverFlash === 1 || hoverFlash === -1 ? "opacity-100!" : ""}`}
                     />
-                    <div className="h-0.5 w-0 bg-white transition-[width] group-hover:w-full"></div>
+                    <div
+                      className={`h-0.5 bg-white transition-[width] duration-500 group-hover:w-full ${hoverFlash === 1 || hoverFlash === -1 ? "w-full" : "w-0"}`}
+                    ></div>
                   </div>
                 </Link>
                 <Link href="/projects?project=ilbayou">
@@ -125,9 +146,11 @@ export default function Home() {
                       width={96}
                       height={28}
                       alt="il bayou"
-                      className={`${LOGO_TO_SIZE_MAP["ilbayou"]} object-contain opacity-45 transition-opacity hover:opacity-100`}
+                      className={`${LOGO_TO_SIZE_MAP["ilbayou"]} object-contain opacity-45 transition-opacity duration-500 group-hover:opacity-100 ${hoverFlash === 2 || hoverFlash === -1 ? "opacity-100!" : ""}`}
                     />
-                    <div className="h-0.5 w-0 bg-white transition-[width] group-hover:w-full"></div>
+                    <div
+                      className={`h-0.5 bg-white transition-[width] duration-500 group-hover:w-full ${hoverFlash === 2 || hoverFlash === -1 ? "w-full" : "w-0"}`}
+                    ></div>
                   </div>
                 </Link>
               </div>
