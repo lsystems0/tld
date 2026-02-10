@@ -1,10 +1,10 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useHomeScrollAnimations } from "@/hooks/useHomeScrollAnimations";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const projectLogos = [
   {
@@ -92,7 +92,7 @@ function ProjectLogos() {
   const project = searchParams.get("project");
 
   return (
-    <div className="flex items-center gap-3 md:gap-6 lg:gap-8">
+    <div className="flex flex-col items-center gap-3 md:flex-row md:gap-6 lg:gap-8">
       {projectLogos.map((logo) => {
         const projectKey = logo.href.split("project=")[1];
         return (
@@ -118,6 +118,47 @@ export const LOGO_TO_SIZE_MAP: Record<string, string> = {
   kukun: "h-5 w-24",
 };
 
+function HamburgerButton({
+  isOpen,
+  onClick,
+}: {
+  isOpen: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="relative flex h-8 w-8 flex-col items-center justify-center gap-1.5 md:hidden"
+      aria-label={isOpen ? "Close menu" : "Open menu"}
+    >
+      <motion.span
+        animate={{
+          rotate: isOpen ? 45 : 0,
+          y: isOpen ? 8 : 0,
+        }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        className="block h-0.5 w-6 origin-center bg-white"
+      />
+      <motion.span
+        animate={{
+          opacity: isOpen ? 0 : 1,
+          scaleX: isOpen ? 0 : 1,
+        }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        className="block h-0.5 w-6 bg-white"
+      />
+      <motion.span
+        animate={{
+          rotate: isOpen ? -45 : 0,
+          y: isOpen ? -8 : 0,
+        }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        className="block h-0.5 w-6 origin-center bg-white"
+      />
+    </button>
+  );
+}
+
 export function Navbar({
   variant,
   onContactClick,
@@ -126,77 +167,109 @@ export function Navbar({
   onContactClick?: () => void;
 }) {
   const { navElementsY, navElementsOpacity } = useHomeScrollAnimations();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isProjects = variant === "projects";
 
   return (
-    <nav className="fixed top-0 right-0 left-0 z-50 flex h-20 w-full items-center rounded-br-3xl rounded-bl-3xl bg-black/30 px-4 backdrop-blur-xs md:px-8">
-      {isProjects ? (
-        // Projects layout: Logo (left) | Project logos (center) | Social + Contact (right)
-        <>
-          {/* Left: Main Logo */}
-          <div className="flex shrink-0 justify-start md:flex-1">
-            <Link href="/">
-              <Image
-                src="/logo.png"
-                alt="Logo"
-                width={97}
-                height={32}
-                className="h-auto w-20 md:w-24"
-              />
-            </Link>
-          </div>
+    <motion.nav
+      initial={false}
+      animate={{
+        height: isProjects && isMobileMenuOpen ? "auto" : 80,
+      }}
+      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+      className="fixed top-0 right-0 left-0 z-50 w-full flex-col rounded-br-3xl rounded-bl-3xl bg-black/30 px-4 backdrop-blur-xs md:px-8"
+    >
+      {/* Main navbar row - always visible */}
+      <div className="flex h-20 w-full items-center">
+        {isProjects ? (
+          // Projects layout: Logo (left) | Project logos (center) | Social + Contact (right)
+          <>
+            {/* Left: Main Logo */}
+            <div className="flex shrink-0 justify-start md:flex-1">
+              <Link href="/">
+                <Image
+                  src="/logo.png"
+                  alt="Logo"
+                  width={97}
+                  height={32}
+                  className="h-auto w-20 md:w-24"
+                />
+              </Link>
+            </div>
 
-          {/* Center: Project Logos */}
-          <div className="flex flex-1 items-center justify-center px-2 pb-2 md:px-4 md:pb-0">
+            {/* Center: Project Logos - hidden on mobile */}
+            <div className="hidden flex-1 items-center justify-center px-2 pb-2 md:flex md:px-4 md:pb-0">
+              <ProjectLogos />
+            </div>
+
+            {/* Right: Hamburger (mobile) / Social Links + Contact (desktop) */}
+            <div className="flex flex-1 shrink-0 items-center justify-end gap-4 lg:gap-6">
+              <div className="hidden md:flex md:items-center md:gap-4 lg:gap-6">
+                <SocialLinks />
+                <ContactButton onClick={onContactClick} />
+              </div>
+              <HamburgerButton
+                isOpen={isMobileMenuOpen}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              />
+            </div>
+          </>
+        ) : (
+          // Default layout: Social (left) | Logo (center) | Contact (right) - with scroll animations
+          <>
+            {/* Social links - hidden initially above page, slide down on scroll */}
+            <motion.div
+              className="flex flex-1 justify-start"
+              style={{
+                opacity: navElementsOpacity,
+                y: navElementsY,
+              }}
+            >
+              <SocialLinks />
+            </motion.div>
+
+            {/* Logo - always visible */}
+            <div className="flex flex-1 justify-center">
+              <Link href="/">
+                <Image
+                  src="/logo.png"
+                  alt="Logo"
+                  width={97}
+                  height={32}
+                  className="h-auto w-18 md:w-24"
+                />
+              </Link>
+            </div>
+
+            {/* Contact button - hidden initially above page, slides down on scroll */}
+            <motion.div
+              className="flex flex-1 justify-end"
+              style={{
+                opacity: navElementsOpacity,
+                y: navElementsY,
+              }}
+            >
+              <ContactButton onClick={onContactClick} />
+            </motion.div>
+          </>
+        )}
+      </div>
+
+      {/* Mobile Menu Content - only for projects page, expands within the same nav */}
+      <AnimatePresence>
+        {isProjects && isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            className="flex flex-col items-center gap-6 overflow-hidden px-6 pb-6 md:hidden"
+          >
             <ProjectLogos />
-          </div>
-
-          {/* Right: Social Links + Contact - hidden on mobile */}
-          <div className="hidden flex-1 shrink-0 items-center justify-end gap-4 md:flex lg:gap-6">
-            <SocialLinks />
-            <ContactButton onClick={onContactClick} />
-          </div>
-        </>
-      ) : (
-        // Default layout: Social (left) | Logo (center) | Contact (right) - with scroll animations
-        <>
-          {/* Social links - hidden initially above page, slide down on scroll */}
-          <motion.div
-            className="flex flex-1 justify-start"
-            style={{
-              opacity: navElementsOpacity,
-              y: navElementsY,
-            }}
-          >
-            <SocialLinks />
           </motion.div>
-
-          {/* Logo - always visible */}
-          <div className="flex flex-1 justify-center">
-            <Link href="/">
-              <Image
-                src="/logo.png"
-                alt="Logo"
-                width={97}
-                height={32}
-                className="h-auto w-18 md:w-24"
-              />
-            </Link>
-          </div>
-
-          {/* Contact button - hidden initially above page, slides down on scroll */}
-          <motion.div
-            className="flex flex-1 justify-end"
-            style={{
-              opacity: navElementsOpacity,
-              y: navElementsY,
-            }}
-          >
-            <ContactButton onClick={onContactClick} />
-          </motion.div>
-        </>
-      )}
-    </nav>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 }
