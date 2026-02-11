@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll } from "framer-motion";
 import { useHomeScrollAnimations } from "@/hooks/useHomeScrollAnimations";
 import { BracketedChild } from "@/components/ui/BracketedChild";
-import { LOGO_TO_SIZE_MAP, Navbar } from "@/components/layout/Navbar";
+import { Navbar } from "@/components/layout/Navbar";
 import { InquiryForm } from "@/components/InquiryForm";
 
 export default function Home() {
@@ -135,7 +135,7 @@ export default function Home() {
                       width={96}
                       height={28}
                       alt="Kukun"
-                      className={`${LOGO_TO_SIZE_MAP["kukun"]} object-contain opacity-45 transition-opacity duration-500 group-hover:opacity-100 ${hoverFlash === 0 || hoverFlash === -1 ? "opacity-100!" : ""}`}
+                      className={`w-24 object-contain pt-1.5 opacity-45 transition-opacity duration-500 group-hover:opacity-100 ${hoverFlash === 0 || hoverFlash === -1 ? "opacity-100!" : ""}`}
                     />
                     <div
                       className={`h-0.5 bg-white transition-[width] duration-500 group-hover:w-full ${hoverFlash === 0 || hoverFlash === -1 ? "w-full" : "w-0"}`}
@@ -149,7 +149,7 @@ export default function Home() {
                       width={96}
                       height={28}
                       alt="Armonia"
-                      className={`${LOGO_TO_SIZE_MAP["armonia"]} object-contain opacity-45 transition-opacity duration-500 group-hover:opacity-100 ${hoverFlash === 1 || hoverFlash === -1 ? "opacity-100!" : ""}`}
+                      className={`w-35 object-contain pt-2 opacity-45 transition-opacity duration-500 group-hover:opacity-100 ${hoverFlash === 1 || hoverFlash === -1 ? "opacity-100!" : ""}`}
                     />
                     <div
                       className={`h-0.5 bg-white transition-[width] duration-500 group-hover:w-full ${hoverFlash === 1 || hoverFlash === -1 ? "w-full" : "w-0"}`}
@@ -163,7 +163,7 @@ export default function Home() {
                       width={96}
                       height={28}
                       alt="il bayou"
-                      className={`${LOGO_TO_SIZE_MAP["ilbayou"]} object-contain opacity-45 transition-opacity duration-500 group-hover:opacity-100 ${hoverFlash === 2 || hoverFlash === -1 ? "opacity-100!" : ""}`}
+                      className={`w-30 object-contain pt-3 opacity-45 transition-opacity duration-500 group-hover:opacity-100 ${hoverFlash === 2 || hoverFlash === -1 ? "opacity-100!" : ""}`}
                     />
                     <div
                       className={`h-0.5 bg-white transition-[width] duration-500 group-hover:w-full ${hoverFlash === 2 || hoverFlash === -1 ? "w-full" : "w-0"}`}

@@ -8,6 +8,11 @@ import { useState } from "react";
 
 const projectLogos = [
   {
+    src: "/logos/kukun.svg",
+    alt: "Kukun Project",
+    href: "/projects?project=kukun",
+  },
+  {
     src: "/logos/armonia.svg",
     alt: "Armonia Project",
     href: "/projects?project=armonia",
@@ -16,11 +21,6 @@ const projectLogos = [
     src: "/logos/ilbayou.svg",
     alt: "Il Bayou Project",
     href: "/projects?project=ilbayou",
-  },
-  {
-    src: "/logos/kukun.svg",
-    alt: "Kukun Project",
-    href: "/projects?project=kukun",
   },
 ];
 
@@ -92,11 +92,16 @@ function ProjectLogos() {
   const project = searchParams.get("project");
 
   return (
-    <div className="flex flex-col items-center gap-3 md:flex-row md:gap-6 lg:gap-8">
+    <div className="flex flex-col items-center gap-2 md:flex-row">
       {projectLogos.map((logo) => {
         const projectKey = logo.href.split("project=")[1];
         return (
-          <Link key={logo.alt} href={logo.href} scroll={false}>
+          <Link
+            key={logo.alt}
+            href={logo.href}
+            scroll={false}
+            className="flex items-center"
+          >
             <Image
               src={logo.src}
               alt={logo.alt}
@@ -112,10 +117,10 @@ function ProjectLogos() {
   );
 }
 
-export const LOGO_TO_SIZE_MAP: Record<string, string> = {
-  armonia: "h-6 w-36",
-  ilbayou: "pt-[6px] h-8 w-28",
-  kukun: "h-5 w-24",
+const LOGO_TO_SIZE_MAP: Record<string, string> = {
+  armonia: "h-6.5 md:h-6",
+  ilbayou: "md:pt-1 h-7.5 md:h-8",
+  kukun: "h-8 md:h-7",
 };
 
 function HamburgerButton({
@@ -264,7 +269,7 @@ export function Navbar({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="flex flex-col items-center gap-6 overflow-hidden px-6 pb-6 md:hidden"
+            className="flex flex-col gap-6 overflow-hidden px-6 pb-6 md:hidden"
           >
             <ProjectLogos />
           </motion.div>
