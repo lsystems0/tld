@@ -39,7 +39,7 @@ function FadeImage({
       <Image
         src={src.desktop}
         alt={alt}
-        className={`${className || ""} hidden h-full w-full object-cover md:block`}
+        className={`${className || ""} hidden h-full w-full object-cover object-bottom md:block`}
         width={width}
         height={height}
         priority={priority}

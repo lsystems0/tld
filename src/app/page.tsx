@@ -176,13 +176,18 @@ export default function Home() {
         </motion.div>
       </motion.div>
 
-      {/* Bottom elements - fixed at full width, does NOT shift with form */}
+      {/* Bottom elements - resizes when form opens */}
       <motion.div
-        className="fixed inset-x-0 bottom-4 z-40 flex w-screen items-center justify-between px-4 md:bottom-8 md:px-24"
+        className="fixed bottom-4 z-40 flex items-center justify-between px-4 md:bottom-8 md:px-24"
         style={{
           y: bottomElementsY,
           opacity: bottomElementsOpacity,
+          left: 0,
         }}
+        animate={{
+          right: isFormOpen ? (isMobile ? 0 : formWidth) : 0,
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         <p className="text-[10px] whitespace-nowrap md:text-base">
           THE RIGHT CHOICE
@@ -198,7 +203,7 @@ export default function Home() {
 
       {/* Form panel - slides in from the right */}
       <motion.div
-        className="fixed top-0 right-0 z-30 h-screen overflow-y-auto bg-[#141414]"
+        className="fixed top-0 right-0 z-50 h-screen overflow-y-auto bg-[#141414]"
         initial={{ width: 0 }}
         animate={{
           width: isMobile

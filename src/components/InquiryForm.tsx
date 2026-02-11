@@ -167,10 +167,11 @@ export function InquiryForm({ inquiringForm }: InquiryFormProps) {
       <div className="flex justify-between">
         <Link
           href="tel:16170"
-          className="ml-2 flex flex-col items-center justify-center"
+          className="ml-1 flex flex-col items-center justify-center"
         >
-          <p className="font-bold">CALL US AT</p>
-          <p className="underline">16170</p>
+          <p className="font-bold">
+            CALL US AT: <span className="underline">16170</span>
+          </p>
         </Link>
         <form.Subscribe
           selector={(state) => [state.canSubmit, state.isSubmitting]}
