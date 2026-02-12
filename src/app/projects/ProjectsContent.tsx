@@ -220,6 +220,7 @@ export function ProjectsContent() {
                 <EmblaCarousel
                   images={projectData.gallery}
                   className="h-full"
+                  contain
                 />
               </FadeContent>
             </AnimatePresence>
@@ -228,7 +229,6 @@ export function ProjectsContent() {
             id="inquiry-form"
             className="relative order-1 flex w-full flex-col gap-6 px-6 md:px-0 lg:order-2 lg:max-w-[40%] lg:flex-[40%] lg:gap-11"
           >
-            <p className="text-xl md:text-2xl">Fill the form for more info</p>
             <InquiryForm inquiringForm={projectData.name} />
           </div>
         </section>

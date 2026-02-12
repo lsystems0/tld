@@ -1,15 +1,20 @@
 "use client";
 
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 
 interface CarouselProps {
   images: readonly string[];
   className?: string;
+  contain?: boolean;
 }
 
-export function EmblaCarousel({ images, className = "" }: CarouselProps) {
+export function EmblaCarousel({
+  images,
+  className = "",
+  contain = false,
+}: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
   const scrollPrev = useCallback(() => {
@@ -38,18 +43,18 @@ export function EmblaCarousel({ images, className = "" }: CarouselProps) {
 
   return (
     <div className={`relative ${className}`}>
-      <div className="overflow-hidden h-full" ref={emblaRef}>
+      <div className="h-full overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
           {images.map((image, index) => (
             <div
               key={index}
-              className="flex-[0_0_100%] min-w-0 min-h-0 relative h-full"
+              className="relative h-full min-h-0 min-w-0 flex-[0_0_100%]"
             >
               <Image
                 src={image}
                 alt={`Gallery image ${index + 1}`}
                 fill
-                className="object-cover"
+                className={`${contain ? "object-contain" : "object-cover"}`}
               />
             </div>
           ))}
@@ -60,7 +65,7 @@ export function EmblaCarousel({ images, className = "" }: CarouselProps) {
         <>
           <button
             onClick={scrollPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 hover:opacity-80 transition-opacity"
+            className="absolute top-1/2 left-4 z-10 -translate-y-1/2 p-2 transition-opacity hover:opacity-80"
             aria-label="Previous slide"
           >
             <svg
@@ -81,7 +86,7 @@ export function EmblaCarousel({ images, className = "" }: CarouselProps) {
 
           <button
             onClick={scrollNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 hover:opacity-80 transition-opacity"
+            className="absolute top-1/2 right-4 z-10 -translate-y-1/2 p-2 transition-opacity hover:opacity-80"
             aria-label="Next slide"
           >
             <svg
