@@ -137,7 +137,7 @@ export function ProjectsContent() {
             </p>
           )}
           <BracketedChild spacing="normal">
-            <p className="z-1 bg-radial from-black/30 to-transparent to-70% p-24 text-lg whitespace-nowrap md:text-2xl">
+            <p className="z-1 bg-radial from-black/30 to-transparent to-70% p-24 text-lg whitespace-nowrap text-shadow-sm/30 md:text-2xl">
               {projectData.tagline}
             </p>
           </BracketedChild>
