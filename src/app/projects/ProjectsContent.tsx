@@ -18,10 +18,7 @@ function FadeImage({
   height,
   priority,
 }: {
-  src: {
-    desktop: string;
-    mobile: string;
-  };
+  src: string;
   alt: string;
   className?: string;
   width?: number;
@@ -37,17 +34,9 @@ function FadeImage({
       className="absolute inset-0"
     >
       <Image
-        src={src.desktop}
+        src={src}
         alt={alt}
-        className={`${className || ""} hidden h-full w-full object-cover object-bottom md:block`}
-        width={width}
-        height={height}
-        priority={priority}
-      />
-      <Image
-        src={src.mobile}
-        alt={alt}
-        className={`${className || ""} h-full w-full object-contain md:hidden`}
+        className={`${className || ""} h-full w-full object-cover object-bottom`}
         width={width}
         height={height}
         priority={priority}
@@ -124,6 +113,13 @@ export function ProjectsContent() {
       <div className="min-h-screen bg-[#141414]">
         {/* Hero Section */}
         <section className="relative flex h-[85vh] items-center justify-center overflow-hidden text-center">
+          <div
+            className="absolute top-0 right-0 bottom-0 left-0 z-1 bg-linear-to-b from-black via-transparent via-80% to-black"
+            style={{
+              backgroundImage:
+                "linear-gradient(to bottom, black 0%, black 10%, transparent 50%, transparent 80%, black 100%)",
+            }}
+          ></div>
           <AnimatePresence mode="popLayout">
             <FadeImage
               key={`hero-${currentProject}`}
@@ -134,6 +130,31 @@ export function ProjectsContent() {
               priority
             />
           </AnimatePresence>
+
+          {projectData.is_real && (
+            <p className="absolute top-24 right-0 left-0 z-2 px-4 text-end whitespace-nowrap md:px-24">
+              A REAL LIFE SHOT
+            </p>
+          )}
+          <BracketedChild spacing="normal">
+            <p className="z-1 bg-radial from-black/30 to-transparent to-70% p-24 text-lg whitespace-nowrap md:text-2xl">
+              {projectData.tagline}
+            </p>
+          </BracketedChild>
+
+          <div className="absolute inset-x-0 bottom-0 z-1 flex w-screen items-center justify-between px-4 md:h-18 md:items-end md:px-24">
+            <p className="p-4 text-start text-xs whitespace-nowrap md:text-base">
+              THE RIGHT CHOICE
+            </p>
+
+            <Image
+              src={projectData.developer_logo}
+              width={243}
+              height={12}
+              className={`object-contain p-4 ${projectData.name === "Kukun" ? "w-24 md:w-35" : "w-40 md:w-60"}`}
+              alt=""
+            />
+          </div>
         </section>
 
         {/* Description Section */}
@@ -243,18 +264,17 @@ const PROJECTS = [
     id: "armonia",
     name: "Armonia",
     logo: "/logos/armonia.svg",
+    tagline: "The Right Community",
+    is_real: true,
+    developer_logo: "/logos/the-land-developers.png",
     brochure:
       "https://drive.google.com/file/d/1A7qYOM9gZTLfWKeal28oZit00VPvfWRM/view",
     description:
       "Discover a rhythm of life where nature and architecture coexist. Armonia, located in the heart of the New Capital's R7 district, offers a rare standard of living across 42 acres, exclusively featuring stand-alone buildings. Designed for privacy without isolation, it's more than a home, it's a daily practice in balance, comfort, and peace, where every element harmonizes with its surroundings to elevate everyday life.",
     description_img:
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUbXfuNLm8zh4rOgUWebVZFDnA1NdTmpo6u7fc",
-    hero_img: {
-      desktop:
-        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUsP6Lhk9tcYkA3boXP8aFfpWyTl4wnhrLBOde",
-      mobile:
-        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUM7ZcyW7XtFquGZS9IC4idahYjrWKNDkgElHc",
-    },
+    hero_img:
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUXpjILiTMo3e5JNistYa0qELOG8zX2w1vWRPK",
     gallery: [
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUcQB206Em9OA7hCnkDJ6KoULdluYz1ZexrHfv",
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUJWQAB6FEX4jMQOUFrhd3NZkLB8Vp1IYwDbqx",
@@ -269,18 +289,17 @@ const PROJECTS = [
     id: "ilbayou",
     name: "Il Bayou",
     logo: "/logos/ilbayou.svg",
+    tagline: "The Right Destination",
+    is_real: true,
+    developer_logo: "/logos/the-land-developers.png",
     brochure:
       "https://drive.google.com/file/d/1wR-vo-NwooVIYNugXmlQk2ZcnR-vhYDU/view",
     description:
       "il bayou is an exclusive fully-serviced compound nestled along the pristine shores of Sahl Hasheesh, Red Sea. Spanning 30 acres, it offers a rare balance between tranquility and accessibility, with beautifully crafted chalets and townhouses. Designed to harmonize with nature, il bayou provides a sanctuary of beauty and relaxation, where every element invites serenity and enhances the coastal living experience. With its seamless connection to both nature and community, this destination delivers a unique, year-round Red Sea experience.",
     description_img:
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUKr5ii5FhEdFokqmHTMRUPXaNSJl8tDzh5Afu",
-    hero_img: {
-      desktop:
-        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUMUi6kMXtFquGZS9IC4idahYjrWKNDkgElHcV",
-      mobile:
-        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU52nOuiJgtm0Df4R7MWkOawGsSoxI2UpLcNXv",
-    },
+    hero_img:
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU3LA2vuVAUu4QTqhLf09tibOEnPIl87CXFomB",
     gallery: [
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUDt2nLi05XgUufbkFidheEQ67YyqGSTKnL4jD",
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU5rwanaJgtm0Df4R7MWkOawGsSoxI2UpLcNXv",
@@ -296,18 +315,17 @@ const PROJECTS = [
     id: "kukun",
     name: "Kukun",
     logo: "/logos/kukun.svg",
+    tagline: "The Right Balance",
+    is_real: false,
+    developer_logo: "/logos/mostakbal-city-logo-white.svg",
     brochure:
       "https://drive.google.com/file/d/1pwY58cR-AsjDnOSjTRdzmO2CRP9JVoQI/view",
     description:
       "Kukūn is a wellness-integrated boutique compound in the heart of Mostakbal City, designed to balance privacy and community with refined architecture and a lifestyle-driven vision. Spanning 20 acres, the development features landscaped valleys, a central canal, and a wellness-focused clubhouse that cultivates connection, calm, and belonging. Offering a unique blend of townhouses, Kukūn is where luxury meets purpose, creating an environment that encourages relaxation, mindfulness, and modern living.",
     description_img:
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUesgsu73QKu049YfMCrcjH67XdsEi3v1SLbh5",
-    hero_img: {
-      desktop:
-        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUQiACkTSdIfyX6DvbAHqLRuSY5TOs2woGkEh1",
-      mobile:
-        "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUmChVkZ6Qnq4XxVGZRJzdtCyPoFlrw9sbaNvB",
-    },
+    hero_img:
+      "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgUQs5reDNSdIfyX6DvbAHqLRuSY5TOs2woGkEh",
     gallery: [
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU5RBBwfJgtm0Df4R7MWkOawGsSoxI2UpLcNXv",
       "https://yvxmjnhe4p.ufs.sh/f/DlMPtHS05XgU8mL6PdgyhnKtk2DMdX34OY9jvAel1EqLBGxU",
